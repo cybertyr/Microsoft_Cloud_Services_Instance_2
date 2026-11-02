@@ -2,22 +2,66 @@
 
 Fork of **Splunk Add-on for Microsoft Cloud Services 6.3.3** so it can run **side-by-side** with the stock `Splunk_TA_microsoft-cloudservices` app, each pointing at a different Microsoft tenant / Azure subscription set.
 
-## Opening and extracting a `.spl` file
+> **This repository root is not a Splunk app.**  
+> Installing the GitHub ZIP / clone root (e.g. `Microsoft_Cloud_Services_Instance_2-main`) into `$SPLUNK_HOME/etc/apps/` produces the **generic Search** UI.  
+> See `DO_NOT_INSTALL_THIS_REPO_ROOT.txt`.
 
-Splunk app packages (`.spl`) are usually **gzip-compressed tar archives** (sometimes plain `.tar` or `.zip`).
+## Install into Splunk (required)
+
+Copy **only** the inner TA folder. The directory name under `etc/apps/` must be exactly:
+
+`Splunk_TA_microsoft-cloudservices_instance_2`
+
+### Option A — install script
 
 ```bash
-# Inspect
-file splunk-add-on-for-microsoft-cloud-services_633.spl
-
-# Extract (this build used the tarball name Splunk_TA_microsoft-cloudservices-6.3.3.tar inside gzip)
-mkdir -p ../extracted
-tar -xzf splunk-add-on-for-microsoft-cloud-services_633.spl -C ../extracted
-# → ../extracted/Splunk_TA_microsoft-cloudservices/
+export SPLUNK_HOME=/opt/splunk   # adjust if needed
+bash scripts/install_to_splunk.sh
+"$SPLUNK_HOME/bin/splunk" restart
 ```
 
-Vendor package for this repo: `/home/cybertyr/Téléchargements/splunk-add-on-for-microsoft-cloud-services_633.spl`  
-Extracted copy (not committed): `../extracted/Splunk_TA_microsoft-cloudservices/`
+### Option B — manual copy
+
+```bash
+# From a git clone of this repo:
+cp -a Splunk_TA_microsoft-cloudservices_instance_2 "$SPLUNK_HOME/etc/apps/"
+
+# Or from a GitHub ZIP extract (folder often ends with -main):
+cp -a Microsoft_Cloud_Services_Instance_2-main/Splunk_TA_microsoft-cloudservices_instance_2 \
+  "$SPLUNK_HOME/etc/apps/"
+
+"$SPLUNK_HOME/bin/splunk" restart
+```
+
+### Option C — packaged tarball (recommended for sharing)
+
+```bash
+bash scripts/package_ta.sh
+# → dist/Splunk_TA_microsoft-cloudservices_instance_2-YYYYMMDD.tgz
+tar -xzf dist/Splunk_TA_microsoft-cloudservices_instance_2-*.tgz -C "$SPLUNK_HOME/etc/apps/"
+"$SPLUNK_HOME/bin/splunk" restart
+```
+
+### Expected UI after a correct install
+
+| Check | Expected |
+|-------|----------|
+| App label | Splunk Add-on for Microsoft Cloud Services (Instance 2) |
+| Nav tabs | **Entrées** (Inputs), **Configuration**, **Recherche** (Search), **Health Dashboard** |
+| Default page | Inputs (`…/inputs`) |
+| URL app id | `/app/Splunk_TA_microsoft-cloudservices_instance_2/…` |
+
+### If you see generic Search / Analytics / Datasets
+
+You almost certainly installed the **repo root** (GitHub ZIP name `…-main`), not the TA folder.
+
+1. Remove the wrong app directory, for example:
+   - `$SPLUNK_HOME/etc/apps/Microsoft_Cloud_Services_Instance_2-main`
+   - `$SPLUNK_HOME/etc/apps/microsoft_cloud_services_instance_2-main`
+2. Install `Splunk_TA_microsoft-cloudservices_instance_2` with Option A/B/C above.
+3. Restart Splunk and reopen the Instance 2 app.
+
+Do **not** rename the TA folder; UCC templates and static JS paths hardcode `Splunk_TA_microsoft-cloudservices_instance_2`.
 
 ## Deployable app in this repository
 
@@ -31,7 +75,15 @@ Extracted copy (not committed): `../extracted/Splunk_TA_microsoft-cloudservices/
 | Global settings conf | `splunk_ta_mscs_settings.conf` | `splunk_ta_mscs_i2_settings.conf` |
 | KV collections | `splunk_ta_mscs_metric`, … | `splunk_ta_mscs_i2_metric`, … |
 
-Install by copying or symlinking `Splunk_TA_microsoft-cloudservices_instance_2` into `$SPLUNK_HOME/etc/apps/` on search heads and forwarders that should use the second Microsoft Cloud connection.
+## Opening and extracting a vendor `.spl` file
+
+Splunk app packages (`.spl`) are usually **gzip-compressed tar archives**.
+
+```bash
+mkdir -p ../extracted
+tar -xzf splunk-add-on-for-microsoft-cloud-services_633.spl -C ../extracted
+# → ../extracted/Splunk_TA_microsoft-cloudservices/
+```
 
 ## What stays shared vs isolated
 
@@ -58,10 +110,10 @@ python3 scripts/build_instance2_addon.py
 
 ## Splunk deployment checklist
 
-1. Install stock TA (instance 1) and this TA (instance 2) on the same instance.
+1. Install stock TA (instance 1) and this TA (instance 2) on the same instance — each under its own correct folder name.
 2. Configure Azure accounts separately in each app’s **Configuration** UI.
 3. Create inputs only under the matching app (input types are `mscs_i2_*` here).
-4. Restart Splunk or reload the app after install: `splunk reload deploy-server` / restart splunkd as appropriate.
+4. Restart Splunk after install.
 5. Confirm REST:  
    `curl -k -u admin:pass https://localhost:8089/servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2/splunk_ta_mscs_i2_settings`
 

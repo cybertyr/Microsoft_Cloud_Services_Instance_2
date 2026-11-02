@@ -1,0 +1,28 @@
+STOP — this GitHub repository root is NOT a Splunk app.
+
+If you copied / unzipped this whole folder into $SPLUNK_HOME/etc/apps/
+(for example as Microsoft_Cloud_Services_Instance_2-main), Splunk will show the
+generic Search / Analytics / Datasets navigation instead of the UCC pages
+(Entrées / Configuration / Recherche / Health Dashboard).
+
+Correct install path (folder name must match exactly):
+
+  $SPLUNK_HOME/etc/apps/Splunk_TA_microsoft-cloudservices_instance_2/
+
+Copy ONLY the inner directory:
+
+  Splunk_TA_microsoft-cloudservices_instance_2/
+
+from this repository — not README.md, not scripts/, not the repo root.
+
+See README.md → “Install into Splunk (required)”.
+
+Quick fix if you already installed the wrong folder:
+
+  1) Remove $SPLUNK_HOME/etc/apps/Microsoft_Cloud_Services_Instance_2-main
+     (or any similarly named GitHub zip root under etc/apps/)
+  2) Install Splunk_TA_microsoft-cloudservices_instance_2 as documented
+  3) Restart Splunk Web / splunkd
+  4) Open Apps → “Splunk Add-on for Microsoft Cloud Services (Instance 2)”
+     Expected URL pattern:
+     /app/Splunk_TA_microsoft-cloudservices_instance_2/inputs
