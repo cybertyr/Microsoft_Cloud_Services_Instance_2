@@ -1,0 +1,9 @@
+sourcetype,modinput
+mscs:azure:eventhub:log,Event Hub
+mscs:storage:table:log,Storage Table
+mscs:storage:blob:log,Storage Blob
+mscs:azure:audit:log,Audit
+mscs:azure:resource:log,Resource
+mscs:metrics:log,Metrics
+mscs:kql:log,KQL
+mscs:azure:consumption:log,Consumption (Billing)

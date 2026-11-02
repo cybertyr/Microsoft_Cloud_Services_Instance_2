@@ -1,0 +1,12 @@
+category,change_type,dvc,vendor_product
+DataPlaneRequests,database,Azure Cosmos DB,Azure Cosmos DB
+MongoRequests,database,Azure Cosmos DB,Azure Cosmos DB
+CassandraRequests,database,Azure Cosmos DB,Azure Cosmos DB
+GremlinRequests,database,Azure Cosmos DB,Azure Cosmos DB
+QueryRuntimeStatistics,database,Azure Cosmos DB,Azure Cosmos DB
+PartitionKeyStatistics,database,Azure Cosmos DB,Azure Cosmos DB
+PartitionKeyRUConsumption,database,Azure Cosmos DB,Azure Cosmos DB
+ControlPlaneRequests,database,Azure Cosmos DB,Azure Cosmos DB
+TableApiRequests,database,Azure Cosmos DB,Azure Cosmos DB
+RHC,data,Azure Data Share,Azure Data Share
+Shares,,Azure Data Share,Azure Data Share

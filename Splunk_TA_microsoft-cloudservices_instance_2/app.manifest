@@ -1,0 +1,64 @@
+{
+  "dependencies": null,
+  "incompatibleApps": null,
+  "info": {
+    "author": [
+      {
+        "name": "Splunk, Inc.",
+        "email": null,
+        "company": null
+      }
+    ],
+    "classification": {
+      "categories": [],
+      "developmentStatus": "Production/Stable",
+      "intendedAudience": null
+    },
+    "commonInformationModels": {
+      "Alerts": "5.1.0",
+      "Authentication": "5.1.0",
+      "Change": "5.1.0",
+      "Data Access": "5.1.0",
+      "Databases": "5.1.0",
+      "Inventory": "5.1.0",
+      "Performance": "5.1.0"
+    },
+    "description": "Splunk Add-on for Microsoft Cloud Services (Instance 2)",
+    "id": {
+      "group": null,
+      "name": "Splunk_TA_microsoft-cloudservices_instance_2",
+      "version": "6.3.3"
+    },
+    "license": {
+      "name": "Splunk Software License Agreement",
+      "text": "LICENSES/LicenseRef-Splunk-8-2021.txt",
+      "uri": "https://www.splunk.com/view/SP-CAAAAFA"
+    },
+    "privacyPolicy": {
+      "name": null,
+      "text": null,
+      "uri": null
+    },
+    "releaseDate": null,
+    "releaseNotes": {
+      "name": "Splunk Add-on for Microsoft Cloud Services (Instance 2)",
+      "text": "./README.txt",
+      "uri": "https://docs.splunk.com/Documentation/AddOns/released/MSCloudServices/About"
+    },
+    "title": "Splunk Add-on for Microsoft Cloud Services (Instance 2)"
+  },
+  "inputGroups": null,
+  "platformRequirements": null,
+  "schemaVersion": "2.0.0",
+  "supportedDeployments": [
+    "_standalone",
+    "_distributed",
+    "_search_head_clustering"
+  ],
+  "targetWorkloads": [
+    "_search_heads",
+    "_forwarders",
+    "_indexers"
+  ],
+  "tasks": null
+}

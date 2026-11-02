@@ -1,0 +1,3 @@
+category,operationName,status,change_type,dvc,vendor_product,action
+SentShareSnapshots,Microsoft.DataShare/accounts/shares/Post,Succeeded,,Azure Data Share,Azure Data Share,shared
+ReceivedShareSnapshots,Microsoft.DataShare/accounts/shareSubscriptions/Post,Succeeded,,Azure Data Share,Azure Data Share,created

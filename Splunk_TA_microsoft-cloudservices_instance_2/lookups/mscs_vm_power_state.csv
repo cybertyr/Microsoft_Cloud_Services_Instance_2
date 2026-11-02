@@ -1,0 +1,5 @@
+power_state_tmp, power_state
+starting, starting
+running, running
+deallocating, stopping
+deallocated, stopped

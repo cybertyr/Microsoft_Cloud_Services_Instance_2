@@ -1,0 +1,325 @@
+<!--
+SPDX-FileCopyrightText: 2021 Splunk, Inc. <sales@splunk.com>
+SPDX-License-Identifier: LicenseRef-Splunk-8-2021
+
+// jscpd:ignore-start
+-->
+<form version="1.1" script="MultiSelectHelper.js">
+    <label>Resource Utilization</label>
+    <fieldset submitButton="false">
+
+        <input type="multiselect" token="host" searchWhenChanged="true">
+            <label>Host</label>
+            <choice value="*">All</choice>
+            <search fieldForValue="host" fieldForLabel="host">
+                <query>
+                <![CDATA[ index=_internal sourcetype=mscs:*:log | stats count by host|table host ]]>
+                </query>
+            </search>
+            <prefix> (</prefix>
+            <suffix>) </suffix>
+            <valuePrefix>host="</valuePrefix>
+            <valueSuffix>"</valueSuffix>
+            <delimiter> OR </delimiter>
+            <default>All</default>
+            <fieldForLabel>host</fieldForLabel>
+            <fieldForValue>host</fieldForValue>
+        </input>
+
+        <input type="time" searchWhenChanged="true">
+            <label>Time Range</label>
+            <default>
+                <earliest>-1d</earliest>
+                <latest>now</latest>
+            </default>
+        </input>
+
+        <input type="multiselect" token="resource_util_modinput_single_instance" searchWhenChanged="true">
+            <label>Input Type - Single Instance</label>
+            <choice value="data.args=*mscs_i2_azure_audit.py OR data.args=*mscs_i2_azure_resource.py">All</choice>
+            <choice value="data.args=*mscs_i2_azure_audit.py">Audit</choice>
+            <choice value="data.args=*mscs_i2_azure_resource.py">Resource</choice>
+            <prefix> (</prefix>
+            <suffix>) </suffix>
+            <delimiter> OR </delimiter>
+            <default>All</default>
+        </input>
+
+        <input type="dropdown" token="resource_util_modinput_multi_instance" searchWhenChanged="true">
+            <label>Input Type - Multi Instance</label>
+            <choice value="data.args=*mscs_i2_azure_event_hub.py">Event Hub</choice>
+            <choice value="data.args=*mscs_i2_storage_table.py">Storage Table</choice>
+            <choice value="data.args=*mscs_i2_storage_blob.py">Storage Blob</choice>
+            <choice value="data.args=*mscs_i2_azure_metrics.py">Metrics</choice>
+            <choice value="data.args=*mscs_i2_azure_kql.py">KQL Log Analytics</choice>
+            <choice value="data.args=*mscs_i2_azure_consumption.py">Consumption (Billing)</choice>
+            <default>Storage Blob</default>
+            <change>
+                <condition value="data.args=*mscs_i2_azure_event_hub.py">
+                    <set token="modinput_multi_instance">sourcetype=mscs:azure:eventhub:log</set>
+                </condition>
+                <condition value="data.args=*mscs_i2_storage_table.py">
+                    <set token="modinput_multi_instance">sourcetype=mscs:storage:table:log</set>
+                </condition>
+                <condition value="data.args=*mscs_i2_storage_blob.py">
+                    <set token="modinput_multi_instance">sourcetype=mscs:storage:blob:log</set>
+                </condition>
+                <condition value="data.args=*mscs_i2_azure_metrics.py">
+                    <set token="modinput_multi_instance">sourcetype=mscs:azure:metrics:log</set>
+                </condition>
+                <condition value="data.args=*mscs_i2_azure_kql.py">
+                    <set token="modinput_multi_instance">sourcetype=mscs:azure:kql:log</set>
+                </condition>
+                <condition value="data.args=*mscs_i2_azure_consumption.py">
+                    <set token="modinput_multi_instance">sourcetype=mscs:azure:consumption:log</set>
+                </condition>
+            </change>
+        </input>
+    </fieldset>
+
+    <row>
+        <panel>
+            <chart>
+                <title>Memory Utilization - All MSCS processes</title>
+                <search>
+                    <query>
+                        <![CDATA[
+                            index=_introspection $host$ source=*resource_usage* component="PerProcess" data.args=*mscs*
+                            | stats sum(data.pct_memory) as memory_sum, sum(data.normalized_pct_cpu) as cpu_sum by _time
+                            | timechart p99(memory_sum) as "Memory Usage P99", p90(memory_sum) as "Memory Usage P90", p75(memory_sum) as "Memory Usage P75"
+                        ]]>
+                    </query>
+                    <earliest>$earliest$</earliest>
+                    <latest>$latest$</latest>
+                </search>
+                <option name="charting.chart">line</option>
+            </chart>
+        </panel>
+        <panel>
+            <chart>
+                <title>CPU Utilization - All MSCS processes</title>
+                <search>
+                    <query>
+                        <![CDATA[
+                            index=_introspection $host$ source=*resource_usage* component="PerProcess" data.args=*mscs*
+                            | stats sum(data.pct_memory) as memory_sum, sum(data.normalized_pct_cpu) as cpu_sum by _time
+                            | timechart p99(cpu_sum) as "CPU Usage P99", p90(cpu_sum) as "CPU Usage P90", p75(cpu_sum) as "CPU Usage P75"
+                        ]]>
+                    </query>
+                    <earliest>$earliest$</earliest>
+                    <latest>$latest$</latest>
+                </search>
+                <option name="charting.chart">line</option>
+            </chart>
+        </panel>
+    </row>
+    <row>
+        <panel>
+            <chart>
+                <title>Memory Utilization P90 - Single Instance Inputs</title>
+                <search>
+                    <query>
+                        <![CDATA[
+                            index=_introspection $host$ source=*resource_usage* component="PerProcess" $resource_util_modinput_single_instance$
+                            | rename data.args as data_args
+                            | eval input_type = mvindex(split(data_args, "/"), -1)
+                            | timechart p90(data.pct_memory) as "pct_memory" by input_type
+                        ]]>
+                    </query>
+                    <earliest>$earliest$</earliest>
+                    <latest>$latest$</latest>
+                </search>
+                <option name="charting.chart">line</option>
+            </chart>
+        </panel>
+        <panel>
+            <chart>
+                <title>CPU Utilization P90 - Single Instance Inputs</title>
+                <search>
+                    <query>
+                        <![CDATA[
+                            index=_introspection $host$ source=*resource_usage* component="PerProcess" $resource_util_modinput_single_instance$
+                            | rename data.args as data_args
+                            | eval input_type = mvindex(split(data_args, "/"), -1)
+                            | timechart p90(data.normalized_pct_cpu) as "pct_cpu" by input_type
+                        ]]>
+                    </query>
+                    <earliest>$earliest$</earliest>
+                    <latest>$latest$</latest>
+                </search>
+                <option name="charting.chart">line</option>
+            </chart>
+        </panel>
+    </row>
+    <row>
+        <panel>
+            <table>
+                <title>Single Instance Inputs Count</title>
+                <search>
+                    <query>
+                        <![CDATA[
+                            | rest /servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2_mscs_i2_azure_audit splunk_server=*
+                            | eval disabled = if(isnotnull(disabled), disabled, 0)
+                            | stats count by disabled, splunk_server
+                            | eval InputType = "Audit", Status = if(disabled == 0, "Active", "Inactive")
+                            | rename count as NumberOfInputs, splunk_server as "SplunkServer(Host)"
+                            | table "SplunkServer(Host)", InputType, Status, NumberOfInputs
+                            | append [
+                            | rest /servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2_mscs_i2_azure_resource splunk_server=*
+                            | eval disabled = if(isnotnull(disabled), disabled, 0)
+                            | stats count by disabled, splunk_server
+                            | eval InputType = "Resource", Status = if(disabled == 0, "Active", "Inactive")
+                            | rename count as NumberOfInputs, splunk_server as "SplunkServer(Host)"
+                            | table "SplunkServer(Host)", InputType, Status, NumberOfInputs
+                            ]
+                        ]]>
+                    </query>
+                    <earliest>$earliest$</earliest>
+                    <latest>$latest$</latest>
+                </search>
+                <option name="count">5</option>
+            </table>
+        </panel>
+    </row>
+
+    <row>
+        <panel>
+            <chart>
+                <title>Memory Utilization P90 - Multi Instance Inputs</title>
+                <search>
+                    <query>
+                        <![CDATA[
+                            index=_introspection $host$ source=*resource_usage* component="PerProcess" $resource_util_modinput_multi_instance$
+                            | eval pid='data.pid'
+                            | join pid [search index=_internal $modinput_multi_instance$ log_level=INFO OR level=INFO
+                            | eval modinput_name = if(isnull(stanza_name), datainput, stanza_name)
+                            | where isnotnull(modinput_name)]
+                            | table _time, pid, modinput_name, data.pct_memory, data.normalized_pct_cpu
+                            | timechart p90(data.pct_memory) as "pct_memory" by modinput_name
+                        ]]>
+                    </query>
+                    <earliest>$earliest$</earliest>
+                    <latest>$latest$</latest>
+                </search>
+                <option name="charting.chart">line</option>
+            </chart>
+        </panel>
+        <panel>
+            <chart>
+                <title>CPU Utilization P90 - Multi Instance Inputs</title>
+                <search>
+                    <query>
+                        <![CDATA[
+                            index=_introspection $host$ source=*resource_usage* component="PerProcess" $resource_util_modinput_multi_instance$
+                            | eval pid='data.pid'
+                            | join pid [search index=_internal $modinput_multi_instance$ log_level=INFO OR level=INFO
+                            | eval modinput_name = if(isnull(stanza_name), datainput, stanza_name)
+                            | where isnotnull(modinput_name)]
+                            | table _time, pid, modinput_name, data.pct_memory, data.normalized_pct_cpu
+                            | timechart p90(data.normalized_pct_cpu) as "pct_cpu" by modinput_name
+                        ]]>
+                    </query>
+                    <earliest>$earliest$</earliest>
+                    <latest>$latest$</latest>
+                </search>
+                <option name="charting.chart">line</option>
+            </chart>
+        </panel>
+    </row>
+
+    <row>
+        <panel>
+            <table>
+                <title>Multi Instance Inputs Count</title>
+                <search>
+                    <query>
+                        <![CDATA[
+                            | rest /servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2_mscs_i2_storage_blob splunk_server=*
+                            | eval disabled = if(isnotnull(disabled), disabled, 0)
+                            | stats count by disabled, splunk_server
+                            | eval InputType = "Storage Blob", Status = if(disabled == 0, "Active", "Inactive")
+                            | rename count as NumberOfInputs, splunk_server as "SplunkServer(Host)"
+                            | table "SplunkServer(Host)", InputType, Status, NumberOfInputs
+                            | append [
+                            | rest /servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2_mscs_i2_storage_table splunk_server=*
+                            | eval disabled = if(isnotnull(disabled), disabled, 0)
+                            | stats count by disabled, splunk_server
+                            | eval InputType = "Storage Table", Status = if(disabled == 0, "Active", "Inactive")
+                            | rename count as NumberOfInputs, splunk_server as "SplunkServer(Host)"
+                            | table "SplunkServer(Host)", InputType, Status, NumberOfInputs
+                            ]
+                            | append [
+                            | rest /servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2_mscs_i2_azure_event_hub splunk_server=*
+                            | eval disabled = if(isnotnull(disabled), disabled, 0)
+                            | stats count by disabled, splunk_server
+                            | eval InputType = "Event Hub", Status = if(disabled == 0, "Active", "Inactive")
+                            | rename count as NumberOfInputs, splunk_server as "SplunkServer(Host)"
+                            | table "SplunkServer(Host)", InputType, Status, NumberOfInputs
+                            ]
+                            | append [
+                            | rest /servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2_mscs_i2_azure_metrics splunk_server=*
+                            | eval disabled = if(isnotnull(disabled), disabled, 0)
+                            | stats count by disabled, splunk_server
+                            | eval InputType = "Metrics", Status = if(disabled == 0, "Active", "Inactive")
+                            | rename count as NumberOfInputs, splunk_server as "SplunkServer(Host)"
+                            | table "SplunkServer(Host)", InputType, Status, NumberOfInputs
+                            ]
+                            | append [
+                            | rest /servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2_mscs_i2_azure_kql splunk_server=*
+                            | eval disabled = if(isnotnull(disabled), disabled, 0)
+                            | stats count by disabled, splunk_server
+                            | eval InputType = "KQL Log Analytics", Status = if(disabled == 0, "Active", "Inactive")
+                            | rename count as NumberOfInputs, splunk_server as "SplunkServer(Host)"
+                            | table "SplunkServer(Host)", InputType, Status, NumberOfInputs
+                            ]
+                            | append [
+                            | rest /servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2_mscs_i2_azure_consumption splunk_server=*
+                            | eval disabled = if(isnotnull(disabled), disabled, 0)
+                            | stats count by disabled, splunk_server
+                            | eval InputType = "Consumption (Billing)", Status = if(disabled == 0, "Active", "Inactive")
+                            | rename count as NumberOfInputs, splunk_server as "SplunkServer(Host)"
+                            | table "SplunkServer(Host)", InputType, Status, NumberOfInputs
+                            ]
+                        ]]>
+                    </query>
+                    <earliest>$earliest$</earliest>
+                    <latest>$latest$</latest>
+                </search>
+                <option name="count">5</option>
+            </table>
+        </panel>
+    </row>
+
+    <!-- KV Store information panels -->
+    <row>
+        <panel>
+            <chart>
+                <title>Splunk KV Store Calls Count</title>
+                <search>
+                    <query>
+                        <![CDATA[
+                            index=_internal $host$ source=*splunkd_access* "storage/collections"
+                            | rex field=uri "servicesNS/.*/(?<app_name>.*)/storage/collections"
+                            | eval classifier = if(app_name == "Splunk_TA_microsoft-cloudservices_instance_2", app_name, "Other")
+                            | timechart count by classifier
+                            | addtotals
+                        ]]>
+                    </query>
+                    <earliest>$earliest$</earliest>
+                    <latest>$latest$</latest>
+                </search>
+                <drilldown>
+                    <link target="_blank">
+                        kvstore_utilization?latest=$latest$&amp;earliest=$earliest$&amp;form.host=$form.host$
+                    </link>
+                </drilldown>
+                <option name="charting.chart">line</option>
+            </chart>
+        </panel>
+    </row>
+
+</form>
+
+<!--
+// jscpd:ignore-end
+-->

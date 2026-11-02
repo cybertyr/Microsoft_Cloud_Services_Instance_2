@@ -1,0 +1,3140 @@
+{
+    "pages": {
+        "configuration": {
+            "title": "Configuration",
+            "description": "Manage your account and connection settings for the Splunk Add-on for Microsoft Cloud Services (Instance 2).",
+            "tabs": [
+                {
+                    "name": "azureaccount",
+                    "title": "Azure App Account",
+                    "conf": "mscs_azure_accounts",
+                    "hook": {
+                        "type": "external",
+                        "src": "config_azureaccount.1.0.0"
+                    },
+                    "warning": {
+                        "edit": {
+                            "message": "If 'Skip files monitoring' is enabled, then modifying account details will require reenabling associated EventHub inputs."
+                        }
+                    },
+                    "table": {
+                        "actions": [
+                            "edit",
+                            "delete",
+                            "clone"
+                        ],
+                        "header": [
+                            {
+                                "field": "name",
+                                "label": "Name"
+                            },
+                            {
+                                "field": "client_id",
+                                "label": "Client ID"
+                            },
+                            {
+                                "field": "tenant_id",
+                                "label": "Tenant ID"
+                            },
+                            {
+                                "field": "auth_type",
+                                "label": "Auth Type",
+                                "mapping": {
+                                    "client_secret": "Client Secret",
+                                    "client_certificate": "Certificate"
+                                }
+                            },
+                            {
+                                "field": "account_class_type",
+                                "label": "Account Class Type",
+                                "mapping": {
+                                    "1": "Azure Public Account",
+                                    "2": "Azure Government Account"
+                                }
+                            }
+                        ],
+                        "moreInfo": [
+                            {
+                                "field": "client_id",
+                                "label": "Client ID"
+                            },
+                            {
+                                "field": "tenant_id",
+                                "label": "Tenant ID"
+                            }
+                        ]
+                    },
+                    "entity": [
+                        {
+                            "field": "name",
+                            "label": "Name",
+                            "type": "text",
+                            "required": true,
+                            "options": {}
+                        },
+                        {
+                            "field": "client_id",
+                            "label": "Client ID",
+                            "type": "text",
+                            "required": true,
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 0,
+                                    "maxLength": 36,
+                                    "errorMsg": "Maximum length allowed for Client ID is 36 characters."
+                                }
+                            ]
+                        },
+                        {
+                            "field": "auth_type",
+                            "label": "Authentication Type",
+                            "type": "singleSelect",
+                            "defaultValue": "client_secret",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "label": "Client Secret based Authentication",
+                                        "value": "client_secret"
+                                    },
+                                    {
+                                        "label": "Certificate based Authentication",
+                                        "value": "client_certificate"
+                                    }
+                                ]
+                            },
+                            "modifyFieldsOnValue": [
+                                {
+                                    "fieldValue": "client_secret",
+                                    "mode": "edit",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "client_secret",
+                                            "display": true,
+                                            "required": true,
+                                            "disabled": true
+                                        },
+                                        {
+                                            "fieldId": "change_client_secret",
+                                            "display": true
+                                        },
+                                        {
+                                            "fieldId": "change_certificate_credentials",
+                                            "display": false,
+                                            "value": "0"
+                                        },
+                                        {
+                                            "fieldId": "certificate_private_key",
+                                            "display": false,
+                                            "required": false,
+                                            "value": ""
+                                        },
+                                        {
+                                            "fieldId": "certificate_password",
+                                            "display": false,
+                                            "required": false,
+                                            "value": ""
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldValue": "client_certificate",
+                                    "mode": "edit",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "change_client_secret",
+                                            "display": false,
+                                            "value": "0"
+                                        },
+                                        {
+                                            "fieldId": "client_secret",
+                                            "display": false,
+                                            "required": false,
+                                            "value": ""
+                                        },
+                                        {
+                                            "fieldId": "change_certificate_credentials",
+                                            "display": true
+                                        },
+                                        {
+                                            "fieldId": "certificate_private_key",
+                                            "display": true,
+                                            "required": true,
+                                            "disabled": true
+                                        },
+                                        {
+                                            "fieldId": "certificate_password",
+                                            "display": true,
+                                            "required": false,
+                                            "disabled": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldValue": "client_secret",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "client_secret",
+                                            "display": true,
+                                            "required": true
+                                        },
+                                        {
+                                            "fieldId": "change_certificate_credentials",
+                                            "display": false,
+                                            "value": "0"
+                                        },
+                                        {
+                                            "fieldId": "certificate_private_key",
+                                            "display": false,
+                                            "required": false,
+                                            "value": ""
+                                        },
+                                        {
+                                            "fieldId": "certificate_password",
+                                            "display": false,
+                                            "required": false,
+                                            "value": ""
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldValue": "client_certificate",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "change_client_secret",
+                                            "display": false,
+                                            "value": "0"
+                                        },
+                                        {
+                                            "fieldId": "client_secret",
+                                            "display": false,
+                                            "required": false,
+                                            "value": ""
+                                        },
+                                        {
+                                            "fieldId": "certificate_private_key",
+                                            "display": true,
+                                            "required": true
+                                        },
+                                        {
+                                            "fieldId": "certificate_password",
+                                            "display": true,
+                                            "required": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "change_client_secret",
+                            "label": "Change Client Secret",
+                            "type": "checkbox",
+                            "defaultValue": 0,
+                            "required": false,
+                            "help": "Check this box to update the Client Secret.",
+                            "options": {
+                                "display": false
+                            },
+                            "modifyFieldsOnValue": [
+                                {
+                                    "fieldValue": 0,
+                                    "mode": "edit",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "client_secret",
+                                            "disabled": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldValue": 1,
+                                    "mode": "edit",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "client_secret",
+                                            "disabled": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "client_secret",
+                            "label": "Key (Client Secret)",
+                            "type": "text",
+                            "encrypted": true,
+                            "required": false,
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 0,
+                                    "maxLength": 256,
+                                    "errorMsg": "Maximum length allowed for Client Secret is 256 characters."
+                                }
+                            ]
+                        },
+                        {
+                            "field": "change_certificate_credentials",
+                            "label": "Change Certificate Credentials",
+                            "type": "checkbox",
+                            "defaultValue": 0,
+                            "required": false,
+                            "help": "Check this box to update the Certificate (PEM) and Private Key Password.",
+                            "options": {
+                                "display": false
+                            },
+                            "modifyFieldsOnValue": [
+                                {
+                                    "fieldValue": 0,
+                                    "mode": "edit",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "certificate_private_key",
+                                            "disabled": true
+                                        },
+                                        {
+                                            "fieldId": "certificate_password",
+                                            "disabled": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldValue": 1,
+                                    "mode": "edit",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "certificate_private_key",
+                                            "disabled": false
+                                        },
+                                        {
+                                            "fieldId": "certificate_password",
+                                            "disabled": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "certificate_private_key",
+                            "label": "Certificate (PEM)",
+                            "type": "textarea",
+                            "encrypted": true,
+                            "required": false,
+                            "help": "Paste a PEM bundle containing both the certificate and the private key. To convert a .pfx file, run: openssl pkcs12 -in cert.pfx -out bundle.pem -nodes",
+                            "options": {
+                                "display": false,
+                                "rowsMin": 5,
+                                "rowsMax": 15
+                            }
+                        },
+                        {
+                            "field": "certificate_password",
+                            "label": "Private Key Password (Optional)",
+                            "type": "text",
+                            "encrypted": true,
+                            "required": false,
+                            "help": "Password for the private key. Required only if the private key is encrypted with a password.",
+                            "options": {
+                                "display": false
+                            },
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 0,
+                                    "maxLength": 256,
+                                    "errorMsg": "Maximum length allowed for Private Key Password is 256 characters."
+                                }
+                            ]
+                        },
+                        {
+                            "field": "tenant_id",
+                            "label": "Tenant ID",
+                            "type": "text",
+                            "required": true,
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 0,
+                                    "maxLength": 36,
+                                    "errorMsg": "Maximum length allowed for Tenant ID is 36 characters."
+                                }
+                            ]
+                        },
+                        {
+                            "field": "account_class_type",
+                            "label": "Account Class Type",
+                            "type": "singleSelect",
+                            "defaultValue": "1",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "label": "Azure Public Account",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "label": "Azure Government Account",
+                                        "value": "2"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "app_account_help_link",
+                            "label": "",
+                            "type": "helpLink",
+                            "options": {
+                                "text": "Learn more",
+                                "link": "https://splunk.github.io/splunk-add-on-for-microsoft-cloud-services/Configureazureappaccount"
+                            }
+                        }
+                    ],
+                    "options": {
+                        "saveValidator": "function(formData) { if(formData.name !== formData.name.trim()) { return 'Name with the leading or trailing space is not allowed.'; } if(formData.auth_type === 'client_certificate') { if(formData.change_certificate_credentials !== 0 && formData.change_certificate_credentials !== '0') { if(!formData.certificate_private_key) { return 'Certificate (PEM) is required for Certificate based Authentication.'; } } } if(formData.auth_type === 'client_secret') { if(formData.change_client_secret !== 0 && formData.change_client_secret !== '0') { if(!formData.client_secret) { return 'Client Secret is required for Client Secret based Authentication.'; } } } return true; }"
+                    }
+                },
+                {
+                    "name": "storageaccount",
+                    "title": "Azure Storage Account",
+                    "conf": "mscs_storage_accounts",
+                    "table": {
+                        "actions": [
+                            "edit",
+                            "delete",
+                            "clone"
+                        ],
+                        "header": [
+                            {
+                                "field": "name",
+                                "label": "Name"
+                            },
+                            {
+                                "field": "account_name",
+                                "label": "Account Name"
+                            },
+                            {
+                                "field": "account_secret_type",
+                                "label": "Account Secret Type",
+                                "mapping": {
+                                    "1": "Access Key",
+                                    "2": "Account Token",
+                                    "0": "None Secret"
+                                }
+                            },
+                            {
+                                "field": "account_class_type",
+                                "label": "Account Class Type",
+                                "mapping": {
+                                    "1": "Azure Public Account",
+                                    "2": "Azure Government Account"
+                                }
+                            }
+                        ],
+                        "moreInfo": [
+                            {
+                                "field": "account_name",
+                                "label": "Account Name"
+                            },
+                            {
+                                "field": "account_secret_type",
+                                "label": "Account Secret Type",
+                                "mapping": {
+                                    "1": "Access Key",
+                                    "2": "Account Token",
+                                    "0": "None Secret"
+                                }
+                            }
+                        ]
+                    },
+                    "entity": [
+                        {
+                            "field": "name",
+                            "label": "Name",
+                            "type": "text",
+                            "required": true,
+                            "options": {}
+                        },
+                        {
+                            "field": "account_name",
+                            "label": "Account Name",
+                            "type": "text",
+                            "required": true,
+                            "options": {}
+                        },
+                        {
+                            "field": "account_secret",
+                            "label": "Account Secret",
+                            "type": "text",
+                            "encrypted": true,
+                            "required": false,
+                            "help": "You can enter Access Key or Access Token in the Account Secret field. If you select 'None Secret', you can leave the 'Account Secret' field empty."
+                        },
+                        {
+                            "field": "account_secret_type",
+                            "label": "Account Secret Type",
+                            "type": "singleSelect",
+                            "defaultValue": "1",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "label": "Access Key",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "label": "Account Token",
+                                        "value": "2"
+                                    },
+                                    {
+                                        "label": "None Secret",
+                                        "value": "0"
+                                    }
+                                ]
+                            },
+                            "help": "For Storage Table Inputs, you can only chose Access Key or Account Token."
+                        },
+                        {
+                            "field": "account_class_type",
+                            "label": "Account Class Type",
+                            "type": "singleSelect",
+                            "defaultValue": "1",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "1",
+                                        "label": "Azure Public Account"
+                                    },
+                                    {
+                                        "value": "2",
+                                        "label": "Azure Government Account"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "storage_account_help_link",
+                            "label": "",
+                            "type": "helpLink",
+                            "options": {
+                                "text": "Learn more",
+                                "link": "https://splunk.github.io/splunk-add-on-for-microsoft-cloud-services/Configurestorageaccount"
+                            }
+                        }
+                    ],
+                    "options": {
+                        "saveValidator": "function(formData) { if(formData.name === formData.name.trim()) {return true; } return 'Name with the leading or trailing space is not allowed.'; }"
+                    }
+                },
+                {
+                    "name": "proxy",
+                    "title": "Proxy",
+                    "warning": {
+                        "config": {
+                            "message": "If 'Skip files monitoring' is enabled, then modifying proxy details will require reenabling all EventHub inputs."
+                        }
+                    },
+                    "entity": [
+                        {
+                            "field": "proxy_enabled",
+                            "label": "Enable",
+                            "type": "checkbox"
+                        },
+                        {
+                            "field": "proxy_type",
+                            "label": "Proxy Type",
+                            "type": "singleSelect",
+                            "defaultValue": "http",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "http",
+                                        "label": "http"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "proxy_rdns",
+                            "label": "DNS Resolution",
+                            "type": "checkbox"
+                        },
+                        {
+                            "field": "proxy_url",
+                            "label": "Host",
+                            "type": "text",
+                            "required": true,
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "maxLength": 4096,
+                                    "minLength": 0,
+                                    "errorMsg": "Maximum length allowed for host is 4096"
+                                },
+                                {
+                                    "type": "regex",
+                                    "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9-]*[A-Za-z0-9])$",
+                                    "errorMsg": "The Host field can contain letters, numbers, dots(.) and hyphens(-)"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "proxy_port",
+                            "label": "Port",
+                            "type": "text",
+                            "required": true,
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        65535
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "proxy_username",
+                            "label": "Username",
+                            "type": "text",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "maxLength": 50,
+                                    "minLength": 0,
+                                    "errorMsg": "Maximum length allowed for username is 50"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "proxy_password",
+                            "label": "Password",
+                            "type": "text",
+                            "encrypted": true
+                        }
+                    ]
+                },
+                {
+                    "name": "logging",
+                    "title": "Logging",
+                    "warning": {
+                        "config": {
+                            "message": "If 'Skip files monitoring' is enabled, then modifying logging details will require reenabling all EventHub inputs."
+                        }
+                    },
+                    "entity": [
+                        {
+                            "field": "agent",
+                            "label": "Log level",
+                            "type": "singleSelect",
+                            "defaultValue": "INFO",
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "DEBUG",
+                                        "label": "DEBUG"
+                                    },
+                                    {
+                                        "value": "INFO",
+                                        "label": "INFO"
+                                    },
+                                    {
+                                        "value": "WARN",
+                                        "label": "WARN"
+                                    },
+                                    {
+                                        "value": "ERROR",
+                                        "label": "ERROR"
+                                    },
+                                    {
+                                        "value": "CRITICAL",
+                                        "label": "CRITICAL"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "performance_tuning_settings",
+                    "title": "Global settings",
+                    "warning": {
+                        "config": {
+                            "message": "Modifying global settings needs the modinputs to be re-enabled.",
+                            "alwaysDisplay": true
+                        }
+                    },
+                    "entity": [
+                        {
+                            "field": "worker_threads_num",
+                            "label": "Number of worker threads",
+                            "type": "text",
+                            "required": false,
+                            "help": "Amount of workers responsible for collecting the data from individual blobs simultaneously. It's used for tuning the parallel processing of Storage Blobs.",
+                            "options": {},
+                            "defaultValue": "10",
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        100
+                                    ],
+                                    "isInteger": true
+                                }
+                            ]
+                        },
+                        {
+                            "field": "get_blob_batch_size",
+                            "label": "Batch size of append blobs",
+                            "type": "text",
+                            "required": false,
+                            "help": "Amount of bytes to be downloaded in a batch for append blobs. This attribute helps in controlling the size of each download operation. It's used in Storage Blobs.",
+                            "options": {},
+                            "defaultValue": "120000",
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        10000,
+                                        1000000
+                                    ],
+                                    "isInteger": true
+                                }
+                            ]
+                        },
+                        {
+                            "field": "query_entities_page_size",
+                            "label": "Entities page size per query",
+                            "type": "text",
+                            "required": false,
+                            "help": "Amount of entities to be retrieved per page when querying entities from an Storage Table. It helps in controlling the amount of data fetched in each query operation.",
+                            "options": {},
+                            "defaultValue": "1000",
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        100,
+                                        1000
+                                    ],
+                                    "isInteger": true
+                                }
+                            ]
+                        },
+                        {
+                            "field": "event_cnt_per_item",
+                            "label": "Event counts per item",
+                            "type": "text",
+                            "required": false,
+                            "help": "Amount of entities to be processed and converted into events in a single batch. This attribute helps in controlling the batch size for event processing for Storage Table.",
+                            "options": {},
+                            "defaultValue": "100",
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        10,
+                                        1000
+                                    ],
+                                    "isInteger": true
+                                }
+                            ]
+                        },
+                        {
+                            "field": "query_end_time_offset",
+                            "label": "Offset of the query end time",
+                            "type": "text",
+                            "required": false,
+                            "help": "The offset in seconds from the current time to determine the end time for querying entities. This attribute helps in setting a time window for the data collection process, ensuring that the queries do not include data that is too recent and might still be in flux. It's used in Storage Table and Azure Audit.",
+                            "options": {},
+                            "defaultValue": "180",
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        20,
+                                        600
+                                    ],
+                                    "isInteger": true
+                                }
+                            ]
+                        },
+                        {
+                            "field": "skip_files_monitoring_for_restart",
+                            "label": "Skip files monitoring",
+                            "type": "checkbox",
+                            "help": "When enabled, modular input doesn't monitor config file changes to automatically restart itself and needs to be re-enabled manually. It's used in Event Hub."
+                        },
+                        {
+                            "field": "event_hub_watchdog_enabled",
+                            "label": "Event Hub progress watchdog",
+                            "type": "checkbox",
+                            "defaultValue": true,
+                            "help": "Enabled by default. Event Hub inputs compare Azure partition sequence numbers with local ingestion progress and recreate stalled consumers. Clear this checkbox to disable globally."
+                        },
+                        {
+                            "field": "load_balancing_strategy",
+                            "label": "Load Balancing Strategy",
+                            "type": "singleSelect",
+                            "help": "Partitions load balancing strategy. It's used in Event Hub.",
+                            "required": true,
+                            "defaultValue": "balanced",
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "label": "Balanced",
+                                        "value": "balanced"
+                                    },
+                                    {
+                                        "label": "Greedy",
+                                        "value": "greedy"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "max_attempts",
+                            "label": "Maximum Retry Attempts",
+                            "type": "text",
+                            "required": false,
+                            "help": "Maximum number of attempts to retry throttled (HTTP 429) or unavailable (HTTP 503) requests. Used by Azure Resource and Azure Audit inputs.",
+                            "options": {},
+                            "defaultValue": "12",
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        100
+                                    ],
+                                    "isInteger": true
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "export_tab",
+                    "title": "",
+                    "customTab": {
+                        "src": "ExportTab",
+                        "type": "external"
+                    },
+                    "entity": []
+                }
+            ]
+        },
+        "inputs": {
+            "title": "Inputs",
+            "description": "Create inputs to collect data from Microsoft Cloud Services.",
+            "services": [
+                {
+                    "name": "mscs_i2_azure_event_hub",
+                    "title": "Azure Event Hub",
+                    "hook": {
+                        "type": "external",
+                        "src": "input_azure_eventhub.1.0.0"
+                    },
+                    "entity": [
+                        {
+                            "field": "name",
+                            "label": "Name",
+                            "type": "text",
+                            "required": true,
+                            "help": "Add unique name for the input",
+                            "options": {}
+                        },
+                        {
+                            "field": "account",
+                            "label": "Azure App Account",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "referenceName": "azureaccount"
+                            }
+                        },
+                        {
+                            "field": "event_hub_namespace",
+                            "label": "Event Hub Namespace(FQDN)",
+                            "type": "text",
+                            "required": true
+                        },
+                        {
+                            "field": "event_hub_name",
+                            "label": "Event Hub Name",
+                            "type": "text",
+                            "required": true
+                        },
+                        {
+                            "field": "consumer_group",
+                            "label": "Consumer Group",
+                            "type": "text",
+                            "defaultValue": "$Default",
+                            "required": true
+                        },
+                        {
+                            "field": "max_wait_time",
+                            "label": "Max Wait Time",
+                            "type": "text",
+                            "defaultValue": "10",
+                            "required": true
+                        },
+                        {
+                            "field": "max_batch_size",
+                            "label": "Max Batch Size",
+                            "type": "text",
+                            "defaultValue": "300",
+                            "required": true
+                        },
+                        {
+                            "field": "use_amqp_over_websocket",
+                            "label": "Transport Type",
+                            "type": "radio",
+                            "defaultValue": "1",
+                            "required": true,
+                            "options": {
+                                "items": [
+                                    {
+                                        "label": "AMQP over WebSocket",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "label": "AMQP",
+                                        "value": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "force_amqp_over_proxy",
+                            "label": "AMQP overrides proxy",
+                            "type": "checkbox",
+                            "help": "Lets use AMQP even if the proxy is enabled"
+                        },
+                        {
+                            "field": "ensure_ascii",
+                            "label": "Enforce ASCII encoding (JSON)",
+                            "type": "radio",
+                            "defaultValue": "0",
+                            "required": true,
+                            "options": {
+                                "items": [
+                                    {
+                                        "label": "Strict ASCII",
+                                        "value": "1"
+                                    },
+                                    {
+                                        "label": "Native encoding",
+                                        "value": "0"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "defaultValue": "default",
+                            "required": true,
+                            "options": {
+                                "endpointUrl": "data/indexes",
+                                "createSearchChoice": true,
+                                "denyList": "^_.*$"
+                            },
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of index name should be between 1 and 1023.",
+                                    "minLength": 1,
+                                    "maxLength": 1023
+                                },
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Index names must begin with a letter or a number and must contain only letters, numbers, underscores, or hyphens. Optionally prefixed with ~.federated.",
+                                    "pattern": "^(~\\.federated\\.)?[a-zA-Z0-9][a-zA-Z0-9\\_\\-]*$"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "sourcetype",
+                            "label": "Sourcetype",
+                            "type": "singleSelect",
+                            "defaultValue": "mscs:azure:eventhub",
+                            "required": true,
+                            "help": "Select a sourcetype according to configured eventhub and diagnostic settings.",
+                            "options": {
+                                "createSearchChoice": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "mscs:azure:eventhub",
+                                        "label": "mscs:azure:eventhub"
+                                    },
+                                    {
+                                        "value": "azure:monitor:aad",
+                                        "label": "azure:monitor:aad"
+                                    },
+                                    {
+                                        "value": "azure:monitor:activity",
+                                        "label": "azure:monitor:activity"
+                                    },
+                                    {
+                                        "value": "azure:monitor:resource",
+                                        "label": "azure:monitor:resource"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "interval",
+                            "label": "Interval",
+                            "type": "text",
+                            "defaultValue": "300",
+                            "required": true,
+                            "help": "Collection interval for this input (in seconds).",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        31536000
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "blob_checkpoint_enabled",
+                            "label": "Enable Blob Checkpoint Store",
+                            "type": "checkbox",
+                            "help": "Azure Storage Account and Container Name is required when this is enabled"
+                        },
+                        {
+                            "field": "storage_account",
+                            "label": "Azure Storage Account",
+                            "type": "singleSelect",
+                            "help": "Enter the storage account for configuring Blob Checkpoint Store",
+                            "options": {
+                                "referenceName": "storageaccount"
+                            }
+                        },
+                        {
+                            "field": "container_name",
+                            "label": "Container Name",
+                            "type": "text",
+                            "help": "Enter the container name under the storage account. You can only add one container name for each input.",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "pattern": "^.{3,63}$",
+                                    "errorMsg": "The Container Name must be between 3 and 63 characters long."
+                                },
+                                {
+                                    "type": "regex",
+                                    "pattern": "^[0-9a-z-]*$",
+                                    "errorMsg": "This Container Name can only contain lowercase letters, numbers and hyphens."
+                                },
+                                {
+                                    "type": "regex",
+                                    "pattern": "^(?!.*--)[^-].*[^-]$",
+                                    "errorMsg": "The Container Name must begin with a letter or a number and each hyphen must be preceded and followed by a non-hyphen character."
+                                }
+                            ]
+                        },
+                        {
+                            "field": "sourcetype_configuration_help_link",
+                            "label": "",
+                            "type": "helpLink",
+                            "options": {
+                                "text": "Learn more",
+                                "link": "https://splunk.github.io/splunk-add-on-for-microsoft-cloud-services/Configureeventhubs"
+                            }
+                        },
+                        {
+                            "field": "export_status",
+                            "label": "export_status",
+                            "type": "text",
+                            "required": false,
+                            "options": {
+                                "display": false
+                            }
+                        }
+                    ],
+                    "options": {
+                        "saveValidator": "function(formData) { if(!formData.blob_checkpoint_enabled || formData.blob_checkpoint_enabled === '0') {return true; } if (!formData.storage_account) {return 'Field Azure Storage Account is required';} if(!formData.container_name) { return 'Field Container Name is required'; } return true; }"
+                    }
+                },
+                {
+                    "name": "mscs_i2_storage_table",
+                    "title": "Azure Storage Table",
+                    "groups": [
+                        {
+                            "label": "Global settings override",
+                            "options": {
+                                "expand": false,
+                                "isExpandable": true
+                            },
+                            "fields": [
+                                "query_entities_page_size",
+                                "event_cnt_per_item",
+                                "query_end_time_offset",
+                                "agent"
+                            ]
+                        }
+                    ],
+                    "hook": {
+                        "type": "external",
+                        "src": "input_storage_table.1.0.0"
+                    },
+                    "entity": [
+                        {
+                            "field": "name",
+                            "label": "Name",
+                            "type": "text",
+                            "required": true,
+                            "help": "Add unique name for the input",
+                            "options": {}
+                        },
+                        {
+                            "field": "account",
+                            "label": "Azure Storage Account",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "referenceName": "storageaccount"
+                            }
+                        },
+                        {
+                            "field": "storage_table_type",
+                            "label": "Input type",
+                            "type": "radio",
+                            "defaultValue": "storage_table",
+                            "required": true,
+                            "help": "Choose the data input you want to add",
+                            "options": {
+                                "items": [
+                                    {
+                                        "label": "Storage table",
+                                        "value": "storage_table"
+                                    },
+                                    {
+                                        "label": "Virtual Machine Metrics",
+                                        "value": "vm_metrics"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "table_list",
+                            "label": "Table List",
+                            "type": "text",
+                            "required": true,
+                            "help": "The names of the tables to query. You can enter specific table name, wildcard or regex syntax, e.g. table, test*, :table\\d+. For metrics tables, enter the full table name, e.g., $MetricsCapacityBlob.",
+                            "options": {}
+                        },
+                        {
+                            "field": "start_time",
+                            "label": "Start Time",
+                            "type": "text",
+                            "required": false,
+                            "help": "The add-on starts collecting data with a date later than this time. The default start time is 30 days ago. Format: YYYY-MM-DDThh:mm:ssTZD",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Field \"Start Time\" is not in format: YYYY-MM-DDThh:mm:ssTZD",
+                                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}([+-]\\d{2}:\\d{2}|Z)$"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "collection_interval",
+                            "label": "Interval",
+                            "type": "text",
+                            "defaultValue": "3600",
+                            "required": true,
+                            "help": "Collection interval for this input (in seconds).",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        31536000
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "defaultValue": "default",
+                            "required": true,
+                            "options": {
+                                "endpointUrl": "data/indexes",
+                                "createSearchChoice": true,
+                                "denyList": "^_.*$"
+                            },
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of index name should be between 1 and 1023.",
+                                    "minLength": 1,
+                                    "maxLength": 1023
+                                },
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Index names must begin with a letter or a number and must contain only letters, numbers, underscores, or hyphens. Optionally prefixed with ~.federated.",
+                                    "pattern": "^(~\\.federated\\.)?[a-zA-Z0-9][a-zA-Z0-9\\_\\-]*$"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "sourcetype",
+                            "label": "Sourcetype",
+                            "type": "text",
+                            "defaultValue": "mscs:storage:table",
+                            "required": true,
+                            "help": "Default: mscs:storage:table",
+                            "options": {}
+                        },
+                        {
+                            "field": "storage_input_help_link",
+                            "label": "",
+                            "type": "helpLink",
+                            "options": {
+                                "text": "Learn more",
+                                "link": "https://splunk.github.io/splunk-add-on-for-microsoft-cloud-services/Configureinputs4"
+                            }
+                        },
+                        {
+                            "field": "storage_virtual_metrics_input_help_link",
+                            "label": " ",
+                            "type": "helpLink",
+                            "options": {
+                                "display": false,
+                                "text": "Learn more",
+                                "link": "https://splunk.github.io/splunk-add-on-for-microsoft-cloud-services/Configureinputs6"
+                            }
+                        },
+                        {
+                            "field": "query_entities_page_size",
+                            "label": "Entities page size per query",
+                            "type": "text",
+                            "required": false,
+                            "help": "Amount of entities to be retrieved per page when querying entities from an Storage Table. It helps in controlling the amount of data fetched in each query operation. Overrides the global setting.",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        100,
+                                        1000
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "event_cnt_per_item",
+                            "label": "Event counts per item",
+                            "type": "text",
+                            "required": false,
+                            "help": "Amount of entities to be processed and converted into events in a single batch. This attribute helps in controlling the batch size for event processing for Storage Table. Overrides the global setting.",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        10,
+                                        1000
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "query_end_time_offset",
+                            "label": "Offset of the query end time",
+                            "type": "text",
+                            "required": false,
+                            "help": "The offset in seconds from the current time to determine the end time for querying entities. This attribute helps in setting a time window for the data collection process, ensuring that the queries do not include data that is too recent and might still be in flux. It's used in Storage Table and Azure Audit. Overrides the global setting.",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        20,
+                                        600
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "agent",
+                            "label": "Log level",
+                            "type": "singleSelect",
+                            "required": false,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "DEBUG",
+                                        "label": "DEBUG"
+                                    },
+                                    {
+                                        "value": "INFO",
+                                        "label": "INFO"
+                                    },
+                                    {
+                                        "value": "WARN",
+                                        "label": "WARN"
+                                    },
+                                    {
+                                        "value": "ERROR",
+                                        "label": "ERROR"
+                                    },
+                                    {
+                                        "value": "CRITICAL",
+                                        "label": "CRITICAL"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "mscs_i2_storage_blob",
+                    "title": "Azure Storage Blob",
+                    "groups": [
+                        {
+                            "label": "Advanced Settings",
+                            "options": {
+                                "expand": false,
+                                "isExpandable": true
+                            },
+                            "fields": [
+                                "blob_mode",
+                                "blob_compression",
+                                "parse_csv_with_header",
+                                "parse_csv_with_delimiter",
+                                "read_timeout",
+                                "dont_reupload_blob_same_size"
+                            ]
+                        },
+                        {
+                            "label": "Global settings override",
+                            "options": {
+                                "expand": false,
+                                "isExpandable": true
+                            },
+                            "fields": [
+                                "worker_threads_num",
+                                "get_blob_batch_size",
+                                "agent"
+                            ]
+                        }
+                    ],
+                    "entity": [
+                        {
+                            "field": "name",
+                            "label": "Name",
+                            "type": "text",
+                            "required": true,
+                            "help": "Add unique name for the input",
+                            "options": {}
+                        },
+                        {
+                            "field": "account",
+                            "label": "Azure Storage Account",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "referenceName": "storageaccount"
+                            }
+                        },
+                        {
+                            "field": "container_name",
+                            "label": "Container Name",
+                            "type": "text",
+                            "required": true,
+                            "help": "Enter the container name under the storage account. You can only add one container name for each input.",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "pattern": "^.{3,63}$",
+                                    "errorMsg": "The Container Name must be between 3 and 63 characters long."
+                                },
+                                {
+                                    "type": "regex",
+                                    "pattern": "^[0-9a-z-]*$",
+                                    "errorMsg": "This Container Name can only contain lowercase letters, numbers and hyphens."
+                                },
+                                {
+                                    "type": "regex",
+                                    "pattern": "^(?!.*--)[^-].*[^-]$",
+                                    "errorMsg": "The Container Name must begin with a letter or a number and each hyphen must be preceded and followed by a non-hyphen character."
+                                }
+                            ]
+                        },
+                        {
+                            "field": "prefix",
+                            "label": "Prefix",
+                            "type": "text",
+                            "required": false,
+                            "help": "Input will only collect the data from the blobs whose names begin with specified prefix.",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of Prefix field should not be more than 4000.",
+                                    "minLength": 0,
+                                    "maxLength": 4000
+                                }
+                            ]
+                        },
+                        {
+                            "field": "blob_list",
+                            "label": "Blob List",
+                            "type": "text",
+                            "required": false,
+                            "help": "Enter the Blob name which you want to collect the data from. You can add multiple blob names separated by commas. For example, blob, testblob* or {\"blob1\":1, \"test*\":2, \"blob\\d+\":3}"
+                        },
+                        {
+                            "field": "exclude_blob_list",
+                            "label": "Excluded Blob List",
+                            "type": "text",
+                            "required": false,
+                            "help": "Enter the Blob name that you do not want to collect the data from. You can add multiple blob names separated by commas."
+                        },
+                        {
+                            "field": "decoding",
+                            "label": "Decoding",
+                            "type": "text",
+                            "required": false,
+                            "help": "Specify the character set of the blobs. e.g UTF-8, UTF-32, etc..",
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Decoding may contain only letters, numbers, underscores or hyphens. They must begin with a letter or number.",
+                                    "pattern": "^[a-zA-Z0-9][a-zA-Z0-9\\_\\-]*$"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "parse_csv_with_header",
+                            "label": "Parse all files as CSV",
+                            "type": "checkbox",
+                            "tooltip": "All files will be parsed as CSV with the first line considered the header.",
+                            "help": "This is applicable only for gzip files.",
+                            "required": false,
+                            "defaultValue": 0
+                        },
+                        {
+                            "field": "parse_csv_with_delimiter",
+                            "label": "CSV field delimiter",
+                            "type": "text",
+                            "defaultValue": ",",
+                            "required": false,
+                            "help": "Delimiter for parsing CSV files. Delimiter must be one character. The character cannot be alphanumeric, single quote or double quote. Tab-delimited files use \\t. Space-delimited files use \\s",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 2,
+                                    "errorMsg": "Length of delimiter is restricted to 1-2 characters (for escaped characters like \\t)."
+                                },
+                                {
+                                    "type": "regex",
+                                    "pattern": "^(\\\\t|\\\\s|[^\\d\\w\\'\\\"]{1})$",
+                                    "errorMsg": "Delimiter must be one character, \\t for tab, \\s for space. The character cannot be alphanumeric, single quote or double quote."
+                                }
+                            ]
+                        },
+                        {
+                            "field": "collection_interval",
+                            "label": "Interval",
+                            "type": "text",
+                            "defaultValue": "3600",
+                            "required": true,
+                            "help": "Collection interval for this input (in seconds).",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        31536000
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "defaultValue": "default",
+                            "required": true,
+                            "options": {
+                                "endpointUrl": "data/indexes",
+                                "createSearchChoice": true,
+                                "denyList": "^_.*$"
+                            },
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of index name should be between 1 and 1023.",
+                                    "minLength": 1,
+                                    "maxLength": 1023
+                                },
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Index names must begin with a letter or a number and must contain only letters, numbers, underscores, or hyphens. Optionally prefixed with ~.federated.",
+                                    "pattern": "^(~\\.federated\\.)?[a-zA-Z0-9][a-zA-Z0-9\\_\\-]*$"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "sourcetype",
+                            "label": "Sourcetype",
+                            "type": "singleSelect",
+                            "defaultValue": "mscs:storage:blob",
+                            "required": true,
+                            "help": "To simplify field extraction, select one of the predefined sourcetypes from the list. Enter values for the custom source type. Default: mscs:storage:blob",
+                            "options": {
+                                "createSearchChoice": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "mscs:storage:blob",
+                                        "label": "mscs:storage:blob"
+                                    },
+                                    {
+                                        "value": "mscs:storage:blob:json",
+                                        "label": "mscs:storage:blob:json"
+                                    },
+                                    {
+                                        "value": "mscs:storage:blob:xml",
+                                        "label": "mscs:storage:blob:xml"
+                                    },
+                                    {
+                                        "value": "mscs:vnet:flow",
+                                        "label": "mscs:vnet:flow"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "blob_input_help_link",
+                            "label": "",
+                            "type": "helpLink",
+                            "options": {
+                                "text": "Learn more",
+                                "link": "https://splunk.github.io/splunk-add-on-for-microsoft-cloud-services/Configureinputs5"
+                            }
+                        },
+                        {
+                            "field": "blob_mode",
+                            "label": "Blob Mode",
+                            "type": "singleSelect",
+                            "defaultValue": "random",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "label": "Random",
+                                        "value": "random"
+                                    },
+                                    {
+                                        "label": "Append",
+                                        "value": "append"
+                                    }
+                                ]
+                            },
+                            "help": "Select Append Mode to retrieve only the incremental changes and select Random Mode to retrieve the entire blob again on an update"
+                        },
+                        {
+                            "field": "blob_compression",
+                            "label": "Blob Compression Type",
+                            "type": "singleSelect",
+                            "defaultValue": "not_compressed",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "label": "Not compressed",
+                                        "value": "not_compressed"
+                                    },
+                                    {
+                                        "label": "Gzip",
+                                        "value": "gzip"
+                                    }
+                                ]
+                            },
+                            "help": "Select proper compression type if blobs are compressed. Otherwise select 'Not compressed' value. Compression is only supported for random blob mode."
+                        },
+                        {
+                            "field": "read_timeout",
+                            "label": "Read Timeout",
+                            "type": "text",
+                            "defaultValue": "60",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "pattern": "^[1-9]\\d*$",
+                                    "errorMsg": "Read Timeout must be a non-zero positive integer."
+                                },
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        80000
+                                    ]
+                                }
+                            ],
+                            "options": {},
+                            "help": "Specify the maximum amount of time (in seconds) to wait for a response from the Azure Storage service when reading data"
+                        },
+                        {
+                            "field": "dont_reupload_blob_same_size",
+                            "label": "Skip re-ingesting blobs with unchanged size",
+                            "type": "checkbox",
+                            "help": "If enabled, blobs won't be re-ingested in the Splunk if their size remains unchanged, even if it was re-uploaded in the container. This option is for append blobs and append mode only, and by default it is disabled.",
+                            "defaultValue": 0
+                        },
+                        {
+                            "field": "worker_threads_num",
+                            "label": "Number of worker threads",
+                            "type": "text",
+                            "required": false,
+                            "options": {},
+                            "help": "Amount of workers responsible for collecting the data from individual blobs simultaneously. It's used for tuning the parallel processing of Storage Blobs. Overrides the global setting.",
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        100
+                                    ],
+                                    "isInteger": true
+                                }
+                            ]
+                        },
+                        {
+                            "field": "get_blob_batch_size",
+                            "label": "Batch size of append blobs",
+                            "type": "text",
+                            "required": false,
+                            "options": {},
+                            "help": "Amount of bytes to be downloaded in a batch for append blobs. This attribute helps in controlling the size of each download operation. It's used in Storage Blobs. Overrides the global setting.",
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        10000,
+                                        1000000
+                                    ],
+                                    "isInteger": true
+                                }
+                            ]
+                        },
+                        {
+                            "field": "agent",
+                            "label": "Log level",
+                            "type": "singleSelect",
+                            "required": false,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "DEBUG",
+                                        "label": "DEBUG"
+                                    },
+                                    {
+                                        "value": "INFO",
+                                        "label": "INFO"
+                                    },
+                                    {
+                                        "value": "WARN",
+                                        "label": "WARN"
+                                    },
+                                    {
+                                        "value": "ERROR",
+                                        "label": "ERROR"
+                                    },
+                                    {
+                                        "value": "CRITICAL",
+                                        "label": "CRITICAL"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "mscs_i2_azure_audit",
+                    "title": "Azure Audit",
+                    "conf": "mscs_azure_audit_inputs",
+                    "groups": [
+                        {
+                            "label": "Global settings override",
+                            "options": {
+                                "expand": false,
+                                "isExpandable": true
+                            },
+                            "fields": [
+                                "max_attempts"
+                            ]
+                        }
+                    ],
+                    "entity": [
+                        {
+                            "field": "name",
+                            "label": "Name",
+                            "type": "text",
+                            "required": true,
+                            "help": "Add unique name for the input",
+                            "options": {}
+                        },
+                        {
+                            "field": "account",
+                            "label": "Azure App Account",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "referenceName": "azureaccount"
+                            }
+                        },
+                        {
+                            "field": "subscription_id",
+                            "label": "Subscription ID",
+                            "type": "text",
+                            "required": true,
+                            "help": "You can add only one subscription ID for each input.",
+                            "options": {}
+                        },
+                        {
+                            "field": "start_time",
+                            "label": "Start Time",
+                            "type": "text",
+                            "required": false,
+                            "help": "The add-on starts collecting data with a date later than this time. The default start time is 30 days ago. Format: YYYY-MM-DDThh:mm:ssTZD",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Field \"Start Time\" is not in format: YYYY-MM-DDThh:mm:ssTZD",
+                                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}([+-]\\d{2}:\\d{2}|Z)$"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "interval",
+                            "label": "Interval",
+                            "type": "text",
+                            "defaultValue": "3600",
+                            "required": true,
+                            "help": "Collection interval for this input (in seconds).",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        31536000
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "defaultValue": "default",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of index name should be between 1 and 1023.",
+                                    "minLength": 1,
+                                    "maxLength": 1023
+                                },
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Index names must begin with a letter or a number and must contain only letters, numbers, underscores, or hyphens. Optionally prefixed with ~.federated.",
+                                    "pattern": "^(~\\.federated\\.)?[a-zA-Z0-9][a-zA-Z0-9\\_\\-]*$"
+                                }
+                            ],
+                            "options": {
+                                "endpointUrl": "data/indexes",
+                                "createSearchChoice": true,
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "field": "max_attempts",
+                            "label": "Maximum Retry Attempts",
+                            "type": "text",
+                            "required": false,
+                            "help": "Maximum number of attempts to retry throttled (HTTP 429) or unavailable (HTTP 503) requests. Overrides the global setting.",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        100
+                                    ],
+                                    "isInteger": true
+                                }
+                            ]
+                        },
+                        {
+                            "field": "audit_help_link",
+                            "label": "",
+                            "type": "helpLink",
+                            "options": {
+                                "text": "Learn more",
+                                "link": "https://splunk.github.io/splunk-add-on-for-microsoft-cloud-services/Configureinputs2"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "mscs_i2_azure_resource",
+                    "title": "Azure Resource",
+                    "conf": "mscs_azure_resource_inputs",
+                    "hook": {
+                        "type": "external",
+                        "src": "input_azure_resource.1.0.0"
+                    },
+                    "groups": [
+                        {
+                            "label": "Global settings override",
+                            "options": {
+                                "expand": false,
+                                "isExpandable": true
+                            },
+                            "fields": [
+                                "max_attempts"
+                            ]
+                        }
+                    ],
+                    "entity": [
+                        {
+                            "field": "name",
+                            "label": "Name",
+                            "type": "text",
+                            "required": true,
+                            "help": "Add unique name for the input",
+                            "options": {}
+                        },
+                        {
+                            "field": "account",
+                            "label": "Azure App Account",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "referenceName": "azureaccount"
+                            }
+                        },
+                        {
+                            "field": "resource_type",
+                            "label": "Resource Type",
+                            "type": "singleSelect",
+                            "required": false,
+                            "defaultValue": "virtual_machine",
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "label": "Disk Data",
+                                        "value": "disk_data"
+                                    },
+                                    {
+                                        "label": "Image Data",
+                                        "value": "image_data"
+                                    },
+                                    {
+                                        "label": "Network Interface Card",
+                                        "value": "network_interface_card"
+                                    },
+                                    {
+                                        "label": "Public IP Address",
+                                        "value": "public_ip_address"
+                                    },
+                                    {
+                                        "label": "Resource Graph",
+                                        "value": "resource_graph"
+                                    },
+                                    {
+                                        "label": "Resource Groups",
+                                        "value": "resource_groups"
+                                    },
+                                    {
+                                        "label": "Security Groups",
+                                        "value": "security_groups"
+                                    },
+                                    {
+                                        "label": "Snapshot Data",
+                                        "value": "snapshot_data"
+                                    },
+                                    {
+                                        "label": "Subscriptions",
+                                        "value": "subscriptions"
+                                    },
+                                    {
+                                        "label": "Topology",
+                                        "value": "topology"
+                                    },
+                                    {
+                                        "label": "Virtual Machine",
+                                        "value": "virtual_machine"
+                                    },
+                                    {
+                                        "label": "Virtual Network",
+                                        "value": "virtual_network"
+                                    }
+                                ]
+                            },
+                            "modifyFieldsOnValue": [
+                                {
+                                    "fieldValue": "subscriptions",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "subscription_id",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "resource_group_list",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "network_watcher_name",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "target_resource_group",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "network_watcher_resource_group",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "resource_graph_query",
+                                            "display": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldValue": "topology",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "subscription_id",
+                                            "display": true
+                                        },
+                                        {
+                                            "fieldId": "network_watcher_name",
+                                            "display": true
+                                        },
+                                        {
+                                            "fieldId": "target_resource_group",
+                                            "display": true
+                                        },
+                                        {
+                                            "fieldId": "network_watcher_resource_group",
+                                            "display": true
+                                        },
+                                        {
+                                            "fieldId": "resource_graph_query",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "resource_group_list",
+                                            "display": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldValue": "resource_graph",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "subscription_id",
+                                            "display": true
+                                        },
+                                        {
+                                            "fieldId": "network_watcher_name",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "target_resource_group",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "network_watcher_resource_group",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "resource_graph_query",
+                                            "display": true
+                                        },
+                                        {
+                                            "fieldId": "resource_group_list",
+                                            "display": false
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldValue": "[[any_other_value]]",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "subscription_id",
+                                            "display": true
+                                        },
+                                        {
+                                            "fieldId": "resource_group_list",
+                                            "display": true
+                                        },
+                                        {
+                                            "fieldId": "network_watcher_name",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "target_resource_group",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "network_watcher_resource_group",
+                                            "display": false
+                                        },
+                                        {
+                                            "fieldId": "resource_graph_query",
+                                            "display": false
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "field": "subscription_id",
+                            "label": "Subscription ID",
+                            "type": "text",
+                            "required": false,
+                            "help": "You can add only one subscription ID for each input.",
+                            "options": {}
+                        },
+                        {
+                            "field": "resource_group_list",
+                            "label": "Resource Group List",
+                            "type": "text",
+                            "required": false,
+                            "help": "You can enter one or multiple resource groups separated by commas. If you leave this field empty, this add-on will query all resources belong to the subscription ID."
+                        },
+                        {
+                            "field": "network_watcher_name",
+                            "label": "Network Watcher Name",
+                            "help": "Network Watchers provide access to topology data.",
+                            "required": false,
+                            "type": "text",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 80,
+                                    "errorMsg": "Maximum length allowed for Network Watcher Name is 80"
+                                },
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Network Watcher Name can only include Alphanumerics, underscores, periods and hyphens. Start with alphanumeric. End with alphanumeric or underscore.",
+                                    "pattern": "^[a-zA-Z0-9](?:[a-zA-Z0-9._-]*[a-zA-Z0-9_])?$"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "network_watcher_resource_group",
+                            "label": "Network Watcher Resource Group",
+                            "help": "Specify the Resource Group containing the Network Watcher.",
+                            "required": false,
+                            "type": "text"
+                        },
+                        {
+                            "field": "target_resource_group",
+                            "label": "Target Resource Group",
+                            "help": "Specify the Resource Group to enumerate topology. This Resource Group should be in the same region as the Network Watcher.",
+                            "required": false,
+                            "type": "text"
+                        },
+                        {
+                            "field": "resource_graph_query",
+                            "label": "Resource Graph Query",
+                            "help": "The resources query. Example: project id, name, type, location, tags | limit 10",
+                            "required": false,
+                            "type": "text",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 8192,
+                                    "errorMsg": "Maximum length allowed for Resource Graph Query is 8192"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "interval",
+                            "label": "Interval",
+                            "type": "text",
+                            "required": true,
+                            "help": "Time interval of input in seconds.",
+                            "defaultValue": "3600",
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        31536000
+                                    ]
+                                }
+                            ],
+                            "options": {}
+                        },
+                        {
+                            "type": "singleSelect",
+                            "label": "Index",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of index name should be between 1 and 1023.",
+                                    "minLength": 1,
+                                    "maxLength": 1023
+                                },
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Index names must begin with a letter or a number and must contain only letters, numbers, underscores, or hyphens. Optionally prefixed with ~.federated.",
+                                    "pattern": "^(~\\.federated\\.)?[a-zA-Z0-9][a-zA-Z0-9\\_\\-]*$"
+                                }
+                            ],
+                            "defaultValue": "default",
+                            "options": {
+                                "endpointUrl": "data/indexes",
+                                "createSearchChoice": true,
+                                "denyList": "^_.*$"
+                            },
+                            "field": "index",
+                            "required": true
+                        },
+                        {
+                            "field": "max_attempts",
+                            "label": "Maximum Retry Attempts",
+                            "type": "text",
+                            "required": false,
+                            "help": "Maximum number of attempts to retry throttled (HTTP 429) or unavailable (HTTP 503) requests. Overrides the global setting.",
+                            "options": {},
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        100
+                                    ],
+                                    "isInteger": true
+                                }
+                            ]
+                        },
+                        {
+                            "field": "resource_help_link",
+                            "label": "",
+                            "type": "helpLink",
+                            "options": {
+                                "text": "Learn more",
+                                "link": "https://splunk.github.io/splunk-add-on-for-microsoft-cloud-services/Configureinputs3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "mscs_i2_azure_metrics",
+                    "title": "Azure Metrics",
+                    "hook": {
+                        "type": "external",
+                        "src": "input_azure_metric.1.0.0"
+                    },
+                    "groups": [
+                        {
+                            "label": "Advanced Settings",
+                            "options": {
+                                "expand": false,
+                                "isExpandable": true
+                            },
+                            "fields": [
+                                "number_of_threads"
+                            ]
+                        }
+                    ],
+                    "entity": [
+                        {
+                            "field": "name",
+                            "label": "Name",
+                            "type": "text",
+                            "required": true,
+                            "help": "Add unique name for the input",
+                            "validators": [
+                                {
+                                    "errorMsg": "Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
+                                    "type": "regex",
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                },
+                                {
+                                    "type": "string",
+                                    "maxLength": 150,
+                                    "minLength": 1,
+                                    "errorMsg": "Length of Name should be between 1 and 150."
+                                }
+                            ],
+                            "options": {}
+                        },
+                        {
+                            "field": "account",
+                            "label": "Azure App Account",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "referenceName": "azureaccount"
+                            }
+                        },
+                        {
+                            "field": "subscription_id",
+                            "label": "Subscription IDs",
+                            "type": "text",
+                            "required": true,
+                            "help": "Comma-separated list of subscriptions.",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 8192,
+                                    "errorMsg": "Length of Subscription ID should be between 1 and 8192."
+                                }
+                            ],
+                            "options": {}
+                        },
+                        {
+                            "field": "namespaces",
+                            "label": "Namespaces",
+                            "type": "textarea",
+                            "help": "Comma-separated list of metric namespaces to query. Refer to section 'Supported metrics with Azure Monitor' in microsoft document for list of available metrics namespaces. Example: Microsoft.Compute/virtualMachines",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 8192,
+                                    "errorMsg": "Length of Namespaces should be between 1 and 8192."
+                                }
+                            ],
+                            "options": {
+                                "rowsMin": 3,
+                                "rowsMax": 15
+                            }
+                        },
+                        {
+                            "field": "metric_statistics",
+                            "label": "Metric Statistics",
+                            "help": "Select Metric statistics",
+                            "required": true,
+                            "type": "multipleSelect",
+                            "defaultValue": "average",
+                            "options": {
+                                "delimiter": ",",
+                                "items": [
+                                    {
+                                        "value": "average",
+                                        "label": "Average"
+                                    },
+                                    {
+                                        "value": "minimum",
+                                        "label": "Minimum"
+                                    },
+                                    {
+                                        "value": "maximum",
+                                        "label": "Maximum"
+                                    },
+                                    {
+                                        "value": "total",
+                                        "label": "Total"
+                                    },
+                                    {
+                                        "value": "count",
+                                        "label": "Count"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "preferred_time_aggregation",
+                            "label": "Preferred Time Aggregation",
+                            "help": "If the preferred time period is not available for a specific metric in the namespace, the next available preferred time will be used.",
+                            "required": true,
+                            "type": "singleSelect",
+                            "defaultValue": "PT1M",
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "PT1M",
+                                        "label": "1 minute"
+                                    },
+                                    {
+                                        "value": "PT5M",
+                                        "label": "5 minutes"
+                                    },
+                                    {
+                                        "value": "PT15M",
+                                        "label": "15 minutes"
+                                    },
+                                    {
+                                        "value": "PT30M",
+                                        "label": "30 minutes"
+                                    },
+                                    {
+                                        "value": "PT1H",
+                                        "label": "1 hour"
+                                    },
+                                    {
+                                        "value": "PT6H",
+                                        "label": "6 hours"
+                                    },
+                                    {
+                                        "value": "PT12H",
+                                        "label": "12 hours"
+                                    },
+                                    {
+                                        "value": "P1D",
+                                        "label": "1 day"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "text",
+                            "field": "interval",
+                            "label": "Interval",
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Interval must be either a non-negative number, CRON interval or -1.",
+                                    "pattern": "^((?:-1|\\d+(?:\\.\\d+)?)|(([\\*\\d{1,2}\\,\\-\\/]+\\s){4}[\\*\\d{1,2}\\,\\-\\/]+))$"
+                                },
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        31536000
+                                    ],
+                                    "errorMsg": "Interval must be between 1 and 31536000"
+                                }
+                            ],
+                            "help": "Time interval of input in seconds.",
+                            "required": true,
+                            "defaultValue": "300"
+                        },
+                        {
+                            "type": "radio",
+                            "label": "Use Metric Index?",
+                            "field": "metric_index_flag",
+                            "defaultValue": "yes",
+                            "help": "Select whether or not to use the Metric Index.",
+                            "required": false,
+                            "options": {
+                                "items": [
+                                    {
+                                        "value": "yes",
+                                        "label": "Yes"
+                                    },
+                                    {
+                                        "value": "no",
+                                        "label": "No"
+                                    }
+                                ]
+                            },
+                            "modifyFieldsOnValue": [
+                                {
+                                    "fieldValue": "no",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "sourcetype",
+                                            "value": "mscs:metrics:events"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldValue": "yes",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "sourcetype",
+                                            "value": "mscs:metrics"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "singleSelect",
+                            "label": "Index",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of index name should be between 1 and 1023.",
+                                    "minLength": 1,
+                                    "maxLength": 1023
+                                },
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Index names must begin with a letter or a number and must contain only letters, numbers, underscores, or hyphens. Optionally prefixed with ~.federated.",
+                                    "pattern": "^(~\\.federated\\.)?[a-zA-Z0-9][a-zA-Z0-9\\_\\-]*$"
+                                }
+                            ],
+                            "options": {
+                                "endpointUrl": "splunk_ta_mscs_i2/splunk_ta_mscs_i2_index",
+                                "labelField": "index",
+                                "createSearchChoice": true,
+                                "denyList": "^_.*$",
+                                "dependencies": [
+                                    "metric_index_flag"
+                                ]
+                            },
+                            "field": "index",
+                            "required": true
+                        },
+                        {
+                            "type": "helpLink",
+                            "field": "index_link",
+                            "label": "",
+                            "help": "",
+                            "tooltip": "",
+                            "options": {
+                                "text": "Learn more about event/metric indexes",
+                                "link": "https://help.splunk.com/en/splunk-enterprise/administer/manage-indexers-and-indexer-clusters/10.2/manage-indexes/create-custom-indexes"
+                            }
+                        },
+                        {
+                            "field": "sourcetype",
+                            "label": "Sourcetype",
+                            "type": "text",
+                            "defaultValue": "mscs:metrics",
+                            "required": true
+                        },
+                        {
+                            "field": "number_of_threads",
+                            "label": "Number of Threads",
+                            "help": "The number of threads used to collect metric data in parallel",
+                            "required": true,
+                            "type": "text",
+                            "defaultValue": "5",
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "pattern": "^[1-9]\\d*$",
+                                    "errorMsg": "Number of threads must be a non-zero positive integer."
+                                },
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        256
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "name": "mscs_i2_azure_kql",
+                    "title": "Azure KQL Log Analytics",
+                    "hook": {
+                        "type": "external",
+                        "src": "input_mscs_azure_kql.1.0.0"
+                    },
+                    "groups": [
+                        {
+                            "label": "Advanced Settings",
+                            "options": {
+                                "expand": false,
+                                "isExpandable": true
+                            },
+                            "fields": [
+                                "index_stats",
+                                "index_empty_values"
+                            ]
+                        }
+                    ],
+                    "entity": [
+                        {
+                            "field": "name",
+                            "label": "Name",
+                            "type": "text",
+                            "required": true,
+                            "help": "Add unique name for the input",
+                            "validators": [
+                                {
+                                    "errorMsg": "Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
+                                    "type": "regex",
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                },
+                                {
+                                    "type": "string",
+                                    "maxLength": 150,
+                                    "minLength": 1,
+                                    "errorMsg": "Length of Name should be between 1 and 150."
+                                }
+                            ],
+                            "options": {}
+                        },
+                        {
+                            "type": "text",
+                            "field": "interval",
+                            "label": "Interval",
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Interval must be either a non-negative number, CRON interval or -1.",
+                                    "pattern": "^((?:-1|\\d+(?:\\.\\d+)?)|(([\\*\\d{1,2}\\,\\-\\/]+\\s){4}[\\*\\d{1,2}\\,\\-\\/]+))$"
+                                },
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        31536000
+                                    ],
+                                    "errorMsg": "Interval must be between 1 and 31536000"
+                                }
+                            ],
+                            "help": "Time interval of input in seconds.",
+                            "required": true,
+                            "defaultValue": "3600"
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "defaultValue": "default",
+                            "required": true,
+                            "options": {
+                                "endpointUrl": "data/indexes",
+                                "createSearchChoice": true,
+                                "denyList": "^_.*$"
+                            },
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of index name should be between 1 and 1023.",
+                                    "minLength": 1,
+                                    "maxLength": 1023
+                                },
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Index names must begin with a letter or a number and must contain only letters, numbers, underscores, or hyphens. Optionally prefixed with ~.federated.",
+                                    "pattern": "^(~\\.federated\\.)?[a-zA-Z0-9][a-zA-Z0-9\\_\\-]*$"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "account",
+                            "label": "Azure App Account",
+                            "type": "singleSelect",
+                            "required": true,
+                            "help": "Select Azure App account.",
+                            "options": {
+                                "referenceName": "azureaccount"
+                            }
+                        },
+                        {
+                            "field": "workspace_id",
+                            "label": "Workspace ID",
+                            "type": "text",
+                            "help": "Enter the Azure Log Analytics Workspace ID.",
+                            "required": true,
+                            "defaultValue": "",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 1000,
+                                    "errorMsg": "Length of Workspace ID should be between 1 and 1000."
+                                }
+                            ],
+                            "options": {}
+                        },
+                        {
+                            "field": "kql_query",
+                            "label": "KQL Query",
+                            "type": "textarea",
+                            "help": "Enter the Azure KQL Query for collecting data from provided Azure Workspace.",
+                            "required": true,
+                            "defaultValue": "",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 8192,
+                                    "errorMsg": "Length of KQL Query should be between 1 and 8192."
+                                }
+                            ],
+                            "options": {
+                                "rowsMin": 3,
+                                "rowsMax": 15
+                            }
+                        },
+                        {
+                            "field": "sourcetype",
+                            "label": "Sourcetype",
+                            "type": "text",
+                            "defaultValue": "mscs:kql",
+                            "required": true,
+                            "help": "Enter sourcetype in which data will be ingested. Default: mscs:kql",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 8192,
+                                    "errorMsg": "Length of Sourcetype should be between 1 and 8192."
+                                }
+                            ],
+                            "options": {}
+                        },
+                        {
+                            "field": "index_stats",
+                            "label": "Index KQL Statistics",
+                            "type": "checkbox",
+                            "help": "If checked, the input will index statistics about the KQL query. The term ':stats' will be appended to the specified sourcetype for the statistical data."
+                        },
+                        {
+                            "field": "index_empty_values",
+                            "label": "Index Empty Field Values",
+                            "type": "checkbox",
+                            "help": "If checked, the input will also index event's field having an empty value."
+                        }
+                    ]
+                },
+                {
+                    "name": "mscs_i2_azure_consumption",
+                    "title": "Azure Consumption(Billing)",
+                    "hook": {
+                        "type": "external",
+                        "src": "input_azure_consumption.1.0.0"
+                    },
+                    "entity": [
+                        {
+                            "field": "name",
+                            "label": "Name",
+                            "type": "text",
+                            "required": true,
+                            "help": "Add unique name for the input",
+                            "validators": [
+                                {
+                                    "errorMsg": "Name must begin with a letter and consist exclusively of alphanumeric characters and underscores.",
+                                    "type": "regex",
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                },
+                                {
+                                    "type": "string",
+                                    "maxLength": 150,
+                                    "minLength": 1,
+                                    "errorMsg": "Length of Name should be between 1 and 150."
+                                }
+                            ],
+                            "options": {}
+                        },
+                        {
+                            "field": "account",
+                            "label": "Azure App Account",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "referenceName": "azureaccount"
+                            }
+                        },
+                        {
+                            "field": "subscription_id",
+                            "label": "Subscription ID",
+                            "help": "You can add only one subscription ID for each input.",
+                            "required": true,
+                            "type": "text",
+                            "options": {
+                                "disableonEdit": true
+                            },
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "maxLength": 8192,
+                                    "errorMsg": "Length of Subscription ID should be between 1 and 8192."
+                                }
+                            ]
+                        },
+                        {
+                            "field": "data_type",
+                            "label": "Data Type",
+                            "type": "singleSelect",
+                            "defaultValue": "Usage Details",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "Reservation Recommendation",
+                                        "label": "Reservation Recommendation"
+                                    },
+                                    {
+                                        "value": "Usage Details",
+                                        "label": "Usage Details"
+                                    }
+                                ]
+                            },
+                            "modifyFieldsOnValue": [
+                                {
+                                    "fieldValue": "Usage Details",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "sourcetype",
+                                            "value": "mscs:consumption:billing"
+                                        },
+                                        {
+                                            "fieldId": "start_date",
+                                            "display": true
+                                        },
+                                        {
+                                            "fieldId": "query_days",
+                                            "display": true
+                                        }
+                                    ]
+                                },
+                                {
+                                    "fieldValue": "Reservation Recommendation",
+                                    "fieldsToModify": [
+                                        {
+                                            "fieldId": "sourcetype",
+                                            "value": "mscs:consumption:reservation:recommendation"
+                                        },
+                                        {
+                                            "fieldId": "start_date",
+                                            "display": false,
+                                            "value": ""
+                                        },
+                                        {
+                                            "fieldId": "query_days",
+                                            "display": false,
+                                            "value": ""
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "type": "text",
+                            "field": "interval",
+                            "label": "Interval",
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Interval must be either a non-negative number, CRON interval or -1.",
+                                    "pattern": "^((?:-1|\\d+(?:\\.\\d+)?)|(([\\*\\d{1,2}\\,\\-\\/]+\\s){4}[\\*\\d{1,2}\\,\\-\\/]+))$"
+                                },
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        31536000
+                                    ],
+                                    "errorMsg": "Interval must be between 1 and 31536000"
+                                }
+                            ],
+                            "help": "Time interval of input in seconds.",
+                            "required": true,
+                            "defaultValue": "86400"
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "defaultValue": "default",
+                            "options": {
+                                "endpointUrl": "data/indexes",
+                                "createSearchChoice": true,
+                                "denyList": "^_.*$"
+                            },
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of index name should be between 1 and 1023.",
+                                    "minLength": 1,
+                                    "maxLength": 1023
+                                },
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Index names must begin with a letter or a number and must contain only letters, numbers, underscores, or hyphens. Optionally prefixed with ~.federated.",
+                                    "pattern": "^(~\\.federated\\.)?[a-zA-Z0-9][a-zA-Z0-9\\_\\-]*$"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "sourcetype",
+                            "label": "Sourcetype",
+                            "help": "",
+                            "required": true,
+                            "type": "text",
+                            "defaultValue": "mscs:consumption:billing",
+                            "options": {}
+                        },
+                        {
+                            "field": "query_days",
+                            "label": "Max days to query",
+                            "help": "Specify the maximum number of days to query.",
+                            "required": false,
+                            "type": "text",
+                            "defaultValue": "10",
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "pattern": "^[1-9]\\d*$",
+                                    "errorMsg": "Max days to query must be a non-zero positive integer. Defaults to 10 days."
+                                }
+                            ]
+                        },
+                        {
+                            "field": "start_date",
+                            "label": "Start Date",
+                            "help": "Defaults to 90 days in the past if empty. Format: YYYY-MM-DD",
+                            "required": false,
+                            "type": "text",
+                            "options": {}
+                        }
+                    ]
+                }
+            ],
+            "table": {
+                "actions": [
+                    "edit",
+                    "delete",
+                    "clone"
+                ],
+                "header": [
+                    {
+                        "label": "Name",
+                        "field": "name",
+                        "customCell": {
+                            "src": "ExportedCustomCell",
+                            "type": "external"
+                        }
+                    },
+                    {
+                        "field": "serviceName",
+                        "label": "Input Type",
+                        "mapping": {
+                            "mscs_i2_azure_audit": "Azure Audit",
+                            "mscs_i2_azure_event_hub": "Azure Event Hub",
+                            "mscs_i2_azure_resource": "Azure Resource",
+                            "mscs_i2_storage_blob": "Azure Storage Blob",
+                            "mscs_i2_storage_table": "Azure Storage Table",
+                            "mscs_i2_azure_metrics": "Azure Metrics",
+                            "mscs_i2_azure_kql": "Azure KQL Log Analytics",
+                            "mscs_i2_azure_consumption": "Azure Consumption(Billing)"
+                        }
+                    },
+                    {
+                        "field": "account",
+                        "label": "Account"
+                    },
+                    {
+                        "label": "Index",
+                        "field": "index"
+                    },
+                    {
+                        "label": "Status",
+                        "field": "disabled"
+                    }
+                ],
+                "moreInfo": [
+                    {
+                        "label": "Name",
+                        "field": "name"
+                    },
+                    {
+                        "field": "account",
+                        "label": "Account"
+                    },
+                    {
+                        "label": "Index",
+                        "field": "index"
+                    },
+                    {
+                        "label": "Status",
+                        "field": "disabled"
+                    },
+                    {
+                        "field": "table_list",
+                        "label": "Table List"
+                    },
+                    {
+                        "field": "container_name",
+                        "label": "Container Name"
+                    },
+                    {
+                        "field": "prefix",
+                        "label": "Prefix"
+                    },
+                    {
+                        "field": "blob_list",
+                        "label": "Blob List"
+                    },
+                    {
+                        "field": "exclude_blob_list",
+                        "label": "Exclude Blob List"
+                    },
+                    {
+                        "field": "decoding",
+                        "label": "Decoding"
+                    },
+                    {
+                        "field": "blob_compression",
+                        "label": "Blob Compression Type",
+                        "mapping": {
+                            "not_compressed": "Not compressed",
+                            "extension_based": "From blob name extension",
+                            "gzip": "Gzip"
+                        }
+                    },
+                    {
+                        "field": "subscription_id",
+                        "label": "Subscription ID"
+                    },
+                    {
+                        "field": "namespaces",
+                        "label": "Namespaces"
+                    },
+                    {
+                        "field": "metric_statistics",
+                        "label": "Metric Statistics"
+                    },
+                    {
+                        "field": "preferred_time_aggregation",
+                        "label": "Preferred Time Aggregation"
+                    },
+                    {
+                        "field": "metric_index_flag",
+                        "label": "Use Metric Index?"
+                    },
+                    {
+                        "field": "resource_type",
+                        "label": "Resource Type"
+                    },
+                    {
+                        "field": "resource_group_list",
+                        "label": "Resource Group List"
+                    },
+                    {
+                        "field": "network_watcher_name",
+                        "label": "Network Watcher Name"
+                    },
+                    {
+                        "field": "network_watcher_resource_group",
+                        "label": "Network Watcher Resource Group"
+                    },
+                    {
+                        "field": "target_resource_group",
+                        "label": "Target Resource Group"
+                    },
+                    {
+                        "field": "resource_graph_query",
+                        "label": "Resource Graph Query"
+                    },
+                    {
+                        "field": "start_time",
+                        "label": "Start Time"
+                    },
+                    {
+                        "field": "collection_interval",
+                        "label": "Interval"
+                    },
+                    {
+                        "field": "interval",
+                        "label": "Interval"
+                    },
+                    {
+                        "field": "sourcetype",
+                        "label": "Sourcetype"
+                    },
+                    {
+                        "field": "data_type",
+                        "label": "Data Type"
+                    },
+                    {
+                        "field": "start_date",
+                        "label": "Start Date"
+                    },
+                    {
+                        "field": "query_days",
+                        "label": "Max days to query"
+                    }
+                ],
+                "customRow": {
+                    "src": "CustomInputRow",
+                    "type": "external"
+                }
+            },
+            "readonlyFieldId": "export_status"
+        }
+    },
+    "alerts": [
+        {
+            "name": "mscs_i2_stop_azure_vm",
+            "label": "Stop Azure VM",
+            "description": "Stop a running Azure Virtual Machine with Splunk Add-on for Microsoft Cloud Services (Instance 2).",
+            "entity": [
+                {
+                    "type": "singleSelectSplunkSearch",
+                    "label": "Azure App Account",
+                    "field": "account",
+                    "search": "| rest /servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2_azureaccount splunk_server=local | dedup title",
+                    "options": {
+                        "items": [
+                            {
+                                "label": "earliest",
+                                "value": "-4@h"
+                            },
+                            {
+                                "label": "latest",
+                                "value": "now"
+                            }
+                        ]
+                    },
+                    "valueField": "title",
+                    "labelField": "title",
+                    "help": "Select an Azure App Account from the dropdown",
+                    "required": true
+                },
+                {
+                    "type": "text",
+                    "label": "Resource Group",
+                    "field": "resource_group",
+                    "defaultValue": "$result.resource_group$",
+                    "required": true
+                },
+                {
+                    "type": "text",
+                    "label": "Subscription ID",
+                    "field": "subscription_id",
+                    "defaultValue": "$result.subscription_id$",
+                    "required": true
+                },
+                {
+                    "type": "text",
+                    "label": "VM Name",
+                    "field": "vm_name",
+                    "defaultValue": "$result.vm_name$",
+                    "required": true
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "name": "Splunk_TA_microsoft-cloudservices_instance_2",
+        "restRoot": "splunk_ta_mscs_i2",
+        "version": "6.3.3",
+        "displayName": "Splunk Add-on for Microsoft Cloud Services (Instance 2)",
+        "schemaVersion": "0.0.10",
+        "os-dependentLibraries": [
+            {
+                "name": "cryptography",
+                "version": "50.0.1",
+                "platform": "win_amd64",
+                "python_version": "3.9.20",
+                "target": "3rdparty/windows_x86_64/python39",
+                "os": "windows",
+                "dependencies": true
+            },
+            {
+                "name": "cryptography",
+                "version": "50.0.1",
+                "platform": "win_amd64",
+                "python_version": "3.13.4",
+                "target": "3rdparty/windows_x86_64/python313",
+                "os": "windows",
+                "dependencies": true
+            },
+            {
+                "name": "cryptography",
+                "version": "50.0.1",
+                "platform": "manylinux2014_x86_64",
+                "python_version": "3.9.20",
+                "target": "3rdparty/linux_x86_64/python39",
+                "os": "linux",
+                "dependencies": true
+            },
+            {
+                "name": "cryptography",
+                "version": "50.0.1",
+                "platform": "manylinux2014_x86_64",
+                "python_version": "3.13.4",
+                "target": "3rdparty/linux_x86_64/python313",
+                "os": "linux",
+                "dependencies": true
+            },
+            {
+                "name": "grpcio",
+                "version": "1.74.0",
+                "platform": "win_amd64",
+                "python_version": "3.9.20",
+                "target": "3rdparty/windows_x86_64/python39",
+                "os": "windows",
+                "dependencies": true
+            },
+            {
+                "name": "grpcio",
+                "version": "1.74.0",
+                "platform": "win_amd64",
+                "python_version": "3.13.4",
+                "target": "3rdparty/windows_x86_64/python313",
+                "os": "windows",
+                "dependencies": true
+            },
+            {
+                "name": "grpcio",
+                "version": "1.74.0",
+                "platform": "manylinux2014_x86_64",
+                "python_version": "3.9.20",
+                "target": "3rdparty/linux_x86_64/python39",
+                "os": "linux",
+                "dependencies": true
+            },
+            {
+                "name": "grpcio",
+                "version": "1.74.0",
+                "platform": "manylinux2014_x86_64",
+                "python_version": "3.13.4",
+                "target": "3rdparty/linux_x86_64/python313",
+                "os": "linux",
+                "dependencies": true
+            }
+        ],
+        "_uccVersion": "6.3.0"
+    }
+}

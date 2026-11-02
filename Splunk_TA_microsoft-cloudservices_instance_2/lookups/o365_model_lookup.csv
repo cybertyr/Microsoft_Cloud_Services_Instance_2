@@ -1,0 +1,49 @@
+Operation, model_type,action,change_type,ResultStatus,object_category
+"Add delegation entry*",account,modified,AAA,*,user
+"Add group*",account,modified,AAA,*,group
+"Add member to group*",account,modified,AAA,*,user
+"Add member to role*",account,modified,AAA,*,user
+"Add role member to role*",account,modified,AAA,*,user
+"Add owner to application*",account,modified,AAA,*,user
+"Add owner to group*",account,modified,AAA,*,user
+"Add owner to service principal*",account,modified,AAA,*,user
+"Add service principal*",account,modified,AAA,*,user
+"Add user*",account,created,AAA,*,user
+"Change user password*",account,modified,AAA,*,user
+"Delete group*",account,deleted,AAA,*,user
+"Remove delegation entry*",account,modified,AAA,*,user
+"Remove member from group*",account,deleted,AAA,*,user
+"Reset user password*",account,modified,AAA,*,user
+"Set Company Information*",account,modified,AAA,*,user
+"Set delegation entry*",account,modified,AAA,*,user
+"Update group*",account,modified,AAA,*,user
+"Update user*",account,modified,AAA,*,user
+"Change user license*",account,modified,AAA,*,user
+"Delete user*",account,deleted,AAA,*,user
+"Set force change user password*",account,modified,AAA,*,user
+"Set license properties*",account,modified,AAA,*,user
+"Update group*",account,modified,AAA,*,group
+"Add service principal credentials*",account,modified,AAA,*,user
+"Remove service principal*",account,deleted,AAA,*,user
+"Remove service principal credentials*",account,modified,AAA,*,user
+"Remove role member from role*",account,modified,AAA,*,user
+"Set company contact information*",account,modified,AAA,*,user
+"Add domain to company*",account,modified,AAA,*,user
+"Add partner to company*",account,modified,AAA,*,user
+"Remove domain from company*",account,modified,AAA,*,user
+"Remove partner from company*",account,modified,AAA,*,user
+"Set domain authentication*",account,modified,AAA,*,user
+"Set federation settings on domain*",account,modified,AAA,*,user
+"Set password policy*",account,modified,AAA,*,user
+"Set DirSyncEnabled flag on company*",account,modified,AAA,*,user
+"Update domain*",account,modified,AAA,*,user
+"Verify domain*",account,read,AAA,*,user
+"Verify email verified domain*",account,read,AAA,*,user
+ForeignRealmIndexLogonInitialAuthUsingADFSFederatedToken*,auth,success,AAA,success,user
+PasswordLogonCookieCopyUsingDAToken*,auth,success,AAA,success,user
+PasswordLogonInitialAuthUsingADFSFederatedToken*,auth,success,AAA,success,user
+PasswordLogonInitialAuthUsingPassword*,auth,success,AAA,success,user
+ForeignRealmIndexLogonInitialAuthUsingADFSFederatedToken*,auth,failure,AAA,failed,user
+PasswordLogonCookieCopyUsingDAToken*,auth,failure,AAA,failed,user
+PasswordLogonInitialAuthUsingADFSFederatedToken*,auth,failure,AAA,failed,user
+PasswordLogonInitialAuthUsingPassword*,auth,failure,AAA,failed,user

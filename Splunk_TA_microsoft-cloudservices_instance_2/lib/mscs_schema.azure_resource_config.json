@@ -1,0 +1,42 @@
+{
+    "basic": {
+        "title": "Microsoft Cloudservices Azure Resource",
+        "description": "Microsoft Cloudservices Azure Resource",
+        "config_meta": {
+            "logging_setting": "global_settings > logging > agent",
+            "interval": "inputs > data"
+        },
+        "monitor_file": [
+            "splunk_ta_mscs_i2_settings.conf",
+            "mscs_azure_accounts.conf",
+            "mscs_api_settings.conf",
+			"mscs_azure_resource_inputs.conf"
+        ]
+    },
+    "config": {
+        "_product": "Splunk_TA_microsoft-cloudservices_instance_2",
+        "_rest_namespace": "splunk_ta_mscs_i2",
+        "_rest_prefix": "",
+        "_version": "1.0.0.0",
+        "global_settings": {
+            "endpoint": "splunk_ta_mscs_i2_settings"
+        },
+        "accounts": {
+            "endpoint": "splunk_ta_mscs_i2_azureaccount"
+        },
+        "api_settings": {
+            "endpoint": "splunk_ta_mscs_i2_api_settings"
+        },
+        "inputs": {
+            "endpoint": "splunk_ta_mscs_i2_mscs_i2_azure_resource"
+        }
+    },
+    "division": {
+        "inputs": {
+            "account": {
+                "type": "multi",
+                "separator": ","
+            }
+        }
+    }
+}

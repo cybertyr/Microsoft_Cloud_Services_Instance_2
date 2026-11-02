@@ -1,0 +1,104 @@
+<!--
+SPDX-FileCopyrightText: 2021 Splunk, Inc. <sales@splunk.com>
+SPDX-License-Identifier: LicenseRef-Splunk-8-2021
+-->
+<form version="1.1" script="MultiSelectHelper.js">
+    <label>Error Details</label>
+    <fieldset submitButton="false">
+        <input type="time" searchWhenChanged="true">
+            <label>Time Range</label>
+            <default>
+                <earliest>-1d</earliest>
+                <latest>now</latest>
+            </default>
+        </input>
+
+        <input type="multiselect" token="host" searchWhenChanged="true">
+            <label>Host</label>
+            <choice value="*">All</choice>
+            <search fieldForValue="host" fieldForLabel="host">
+                <query><![CDATA[ index=_internal sourcetype=mscs:*:log | stats count by host|table host ]]></query>
+            </search>
+            <prefix> (</prefix>
+            <suffix>) </suffix>
+            <valuePrefix>host="</valuePrefix>
+            <valueSuffix>"</valueSuffix>
+            <delimiter> OR </delimiter>
+            <default>All</default>
+            <fieldForLabel>host</fieldForLabel>
+            <fieldForValue>host</fieldForValue>
+        </input>
+
+        <input type="multiselect" token="modinput_logs" searchWhenChanged="true">
+            <label>Input Type</label>
+            <choice value="sourcetype=mscs:azure:eventhub:log OR sourcetype=mscs:storage:table:log OR sourcetype=mscs:storage:blob:log OR sourcetype=mscs:azure:audit:log OR sourcetype=mscs:azure:resource:log OR sourcetype=mscs:metrics:log OR sourcetype=mscs:kql:log OR sourcetype=mscs:azure:consumption:log">All</choice>
+            <choice value="sourcetype=mscs:azure:eventhub:log">Event Hub</choice>
+            <choice value="sourcetype=mscs:storage:table:log">Storage Table</choice>
+            <choice value="sourcetype=mscs:storage:blob:log">Storage Blob</choice>
+            <choice value="sourcetype=mscs:azure:audit:log">Audit</choice>
+            <choice value="sourcetype=mscs:azure:resource:log">Resource</choice>
+            <choice value="sourcetype=mscs:metrics:log">Metrics</choice>
+            <choice value="sourcetype=mscs:kql:log">KQL</choice>
+            <choice value="sourcetype=mscs:azure:consumption:log">Consumption (Billing)</choice>
+            <prefix> (</prefix>
+            <suffix>) </suffix>
+            <delimiter> OR </delimiter>
+            <default>All</default>
+        </input>
+
+        <input type="multiselect" token="modinput_names" searchWhenChanged="true" dependsOn="modinput_logs">
+            <label>Input Name</label>
+            <choice value="*">All</choice>
+            <search fieldForValue="modinput_name" fieldForLabel="modinput_name">
+                <query><![CDATA[
+                index=_internal $modinput_logs$
+                | eval modinput_name=if(isnull(stanza_name), datainput, stanza_name)
+                | stats count by modinput_name
+                | table modinput_name
+                | sort modinput_name
+                ]]></query>
+            </search>
+            <prefix> (</prefix>
+            <suffix>) </suffix>
+            <delimiter>, </delimiter>
+            <default>All</default>
+            <fieldForLabel>modinput_name</fieldForLabel>
+            <fieldForValue>modinput_name</fieldForValue>
+        </input>
+
+        <input type="text" token="key_word" searchWhenChanged="true">
+            <label>Keyword</label>
+            <prefix> "</prefix>
+            <suffix>"</suffix>
+            <default></default>
+        </input>
+
+    </fieldset>
+
+    <row>
+        <panel>
+            <html>
+                <a href="https://splunk.github.io/splunk-add-on-for-microsoft-cloud-services/Troubleshoot/" target="_blank">Go to Add-On troubleshooting section</a>
+            </html>
+            <table>
+                <title>Error Message Details</title>
+                <search>
+                    <query>
+                        <![CDATA[
+                            index=_internal $modinput_logs$ $host$ $key_word$ (level=ERROR OR log_level=ERROR)
+                            | eval modinput_name = if(isnull(stanza_name), datainput, stanza_name)
+                            | search modinput_name IN $modinput_names$
+                            | lookup mscs_log_sourcetype_modinput_lookup sourcetype OUTPUT modinput
+                            | stats count as error_count by host, sourcetype, modinput, modinput_name, message
+                            | table host, sourcetype, modinput, modinput_name, message, error_count
+                            | sort -error_count, host, stanza_name, modinput_name, message
+                        ]]>
+                    </query>
+                    <earliest>$earliest$</earliest>
+                    <latest>$latest$</latest>
+                </search>
+            </table>
+        </panel>
+    </row>
+
+</form>

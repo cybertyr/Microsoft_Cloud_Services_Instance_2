@@ -1,0 +1,37 @@
+{
+    "basic": {
+        "title": "Microsoft Cloudservices Storage Blob",
+        "description": "Microsoft Cloudservices Storage Blob",
+        "config_meta": {
+            "logging_setting": "global_settings > logging > agent",
+            "interval": "inputs > data"
+        },
+        "monitor_file": [
+            "splunk_ta_mscs_i2_settings.conf",
+            "mscs_storage_accounts.conf"
+        ]
+    },
+    "config": {
+        "_product": "Splunk_TA_microsoft-cloudservices_instance_2",
+        "_rest_namespace": "splunk_ta_mscs_i2",
+        "_rest_prefix": "",
+        "_version": "1.0.0.0",
+        "global_settings": {
+            "endpoint": "splunk_ta_mscs_i2_settings"
+        },
+        "accounts": {
+            "endpoint": "splunk_ta_mscs_i2_storageaccount"
+        },
+        "inputs": {
+            "endpoint": "splunk_ta_mscs_i2_mscs_i2_storage_blob"
+        }
+    },
+    "division": {
+        "inputs": {
+            "account": {
+                "type": "multi",
+                "separator": ","
+            }
+        }
+    }
+}

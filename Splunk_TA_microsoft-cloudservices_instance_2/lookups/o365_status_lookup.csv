@@ -1,0 +1,6 @@
+ResultStatus,status
+success,success
+failed,failure
+True,success
+Succeeded,success
+fail,failure

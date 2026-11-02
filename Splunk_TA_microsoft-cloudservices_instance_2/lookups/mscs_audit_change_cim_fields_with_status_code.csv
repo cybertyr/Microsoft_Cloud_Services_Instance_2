@@ -1,0 +1,286 @@
+operationName.localizedValue,vendor_res_code,action,object_attrs,object_category,change_type
+Create/Update Storage Account,unknown,modified,Storage Account,user,AAA
+Create/Update Storage Account,Started,modified,Storage Account,user,AAA
+Create/Update Storage Account,OK,modified,Storage Account,user,AAA
+Create/Update Storage Account,Created,created,Storage Account,user,AAA
+Create/Update Storage Account,Accepted,modified,Storage Account,user,AAA
+Create/Update Storage Account,BadRequest,modified,Storage Account,user,AAA
+Create/Update Storage Account,Conflict,modified,Storage Account,user,AAA
+Put File Share,unknown,modified,File Share,file,filesystem
+Put File Share,Started,modified,File Share,file,filesystem
+Put File Share,OK,modified,File Share,file,filesystem
+Put File Share,Created,created,File Share,file,filesystem
+Put File Share,Accepted,modified,File Share,file,filesystem
+Put File Share,BadRequest,modified,File Share,file,filesystem
+Put File Share,Conflict,modified,File Share,file,filesystem
+Create or Update EventHub,unknown,modified,EventHub,directory,filesystem
+Create or Update EventHub,Started,modified,EventHub,directory,filesystem
+Create or Update EventHub,OK,modified,EventHub,directory,filesystem
+Create or Update EventHub,Created,created,EventHub,directory,filesystem
+Create or Update EventHub,Accepted,modified,EventHub,directory,filesystem
+Create or Update EventHub,BadRequest,modified,EventHub,directory,filesystem
+Create or Update EventHub,Conflict,modified,EventHub,directory,filesystem
+Create or Update Public Ip Address,unknown,modified,Public Ip Address,configuration,network
+Create or Update Public Ip Address,Started,modified,Public Ip Address,configuration,network
+Create or Update Public Ip Address,OK,modified,Public Ip Address,configuration,network
+Create or Update Public Ip Address,Created,created,Public Ip Address,configuration,network
+Create or Update Public Ip Address,Accepted,modified,Public Ip Address,configuration,network
+Create or Update Public Ip Address,BadRequest,modified,Public Ip Address,configuration,network
+Create or Update Public Ip Address,Conflict,modified,Public Ip Address,configuration,network
+Update resource group,unknown,modified,Resource Group,group,AAA
+Update resource group,Started,modified,Resource Group,group,AAA
+Update resource group,OK,modified,Resource Group,group,AAA
+Update resource group,Created,created,Resource Group,group,AAA
+Update resource group,Accepted,modified,Resource Group,group,AAA
+Update resource group,BadRequest,modified,Resource Group,group,AAA
+Create or Update EventHub Authorization Rule,unknown,modified,EventHub Authorization Rule,file,AAA
+Create or Update EventHub Authorization Rule,Started,modified,EventHub Authorization Rule,file,AAA
+Create or Update EventHub Authorization Rule,OK,modified,EventHub Authorization Rule,file,AAA
+Create or Update EventHub Authorization Rule,Created,created,EventHub Authorization Rule,file,AAA
+Create or Update EventHub Authorization Rule,Accepted,modified,EventHub Authorization Rule,file,AAA
+Create or Update EventHub Authorization Rule,BadRequest,modified,EventHub Authorization Rule,file,AAA
+Create or Update EventHub Authorization Rule,Conflict,modified,EventHub Authorization Rule,file,AAA
+Delete blob container,unknown,deleted,Blob Container,directory,filesystem
+Delete blob container,Started,deleted,Blob Container,directory,filesystem
+Delete blob container,OK,deleted,Blob Container,directory,filesystem
+Delete blob container,Accepted,deleted,Blob Container,directory,filesystem
+Delete blob container,BadRequest,deleted,Blob Container,directory,filesystem
+Delete blob container,PreconditionFailed,deleted,Blob Container,directory,filesystem
+Create or Update Virtual Machine,unknown,modified,Virtual Machine,file,filesystem
+Create or Update Virtual Machine,Started,modified,Virtual Machine,file,filesystem
+Create or Update Virtual Machine,OK,modified,Virtual Machine,file,filesystem
+Create or Update Virtual Machine,Created,created,Virtual Machine,file,filesystem
+Create or Update Virtual Machine,Accepted,modified,Virtual Machine,file,filesystem
+Create or Update Virtual Machine,BadRequest,modified,Virtual Machine,file,filesystem
+Create or Update Virtual Machine,Conflict,modified,Virtual Machine,file,filesystem
+Create or Update Disk,unknown,modified,Disk,file,filesystem
+Create or Update Disk,Started,modified,Disk,file,filesystem
+Create or Update Disk,OK,modified,Disk,file,filesystem
+Create or Update Disk,Created,created,Disk,file,filesystem
+Create or Update Disk,Accepted,modified,Disk,file,filesystem
+Create or Update Disk,BadRequest,modified,Disk,file,filesystem
+Create or Update Disk,Conflict,modified,Disk,file,filesystem
+Create or Update Network Interface,unknown,modified,Network Interface,file,filesystem
+Create or Update Network Interface,Started,modified,Network Interface,file,filesystem
+Create or Update Network Interface,OK,modified,Network Interface,file,filesystem
+Create or Update Network Interface,Created,created,Network Interface,file,filesystem
+Create or Update Network Interface,Accepted,modified,Network Interface,file,filesystem
+Create or Update Network Interface,BadRequest,modified,Network Interface,file,filesystem
+Create or Update Network Interface,Conflict,modified,Network Interface,file,filesystem
+Create or Update Virtual Network,unknown,modified,Virtual Network,file,filesystem
+Create or Update Virtual Network,Started,modified,Virtual Network,file,filesystem
+Create or Update Virtual Network,OK,modified,Virtual Network,file,filesystem
+Create or Update Virtual Network,Created,created,Virtual Network,file,filesystem
+Create or Update Virtual Network,Accepted,modified,Virtual Network,file,filesystem
+Create or Update Virtual Network,BadRequest,modified,Virtual Network,file,filesystem
+Create or Update Virtual Network,Conflict,modified,Virtual Network,file,filesystem
+Create or Update ConsumerGroup,unknown,modified,ConsumerGroup,group,AAA
+Create or Update ConsumerGroup,Started,modified,ConsumerGroup,group,AAA
+Create or Update ConsumerGroup,OK,modified,ConsumerGroup,group,AAA
+Create or Update ConsumerGroup,Created,created,ConsumerGroup,group,AAA
+Create or Update ConsumerGroup,Accepted,modified,ConsumerGroup,group,AAA
+Create or Update ConsumerGroup,BadRequest,modified,ConsumerGroup,group,AAA
+Create or Update ConsumerGroup,Conflict,modified,ConsumerGroup,group,AAA
+Create or Update Virtual Network Subnet,unknown,modified,Virtual Network Subnet,file,filesystem
+Create or Update Virtual Network Subnet,Started,modified,Virtual Network Subnet,file,filesystem
+Create or Update Virtual Network Subnet,OK,modified,Virtual Network Subnet,file,filesystem
+Create or Update Virtual Network Subnet,Created,created,Virtual Network Subnet,file,filesystem
+Create or Update Virtual Network Subnet,Accepted,modified,Virtual Network Subnet,file,filesystem
+Create or Update Virtual Network Subnet,BadRequest,modified,Virtual Network Subnet,file,filesystem
+Create or Update Virtual Network Subnet,Conflict,modified,Virtual Network Subnet,file,filesystem
+Delete Storage Account,unknown,deleted,Storage Account,user,AAA
+Delete Storage Account,Started,deleted,Storage Account,user,AAA
+Delete Storage Account,OK,deleted,Storage Account,user,AAA
+Delete Storage Account,Accepted,deleted,Storage Account,user,AAA
+Delete Storage Account,BadRequest,deleted,Storage Account,user,AAA
+Delete Storage Account,PreconditionFailed,deleted,Storage Account,user,AAA
+Delete Virtual Network,unknown,deleted,Virtual Network,file,filesystem
+Delete Virtual Network,Started,deleted,Virtual Network,file,filesystem
+Delete Virtual Network,OK,deleted,Virtual Network,file,filesystem
+Delete Virtual Network,Accepted,deleted,Virtual Network,file,filesystem
+Delete Virtual Network,BadRequest,deleted,Virtual Network,file,filesystem
+Delete Virtual Network,PreconditionFailed,deleted,Virtual Network,file,filesystem
+Delete Disk,unknown,deleted,Disk,file,filesystem
+Delete Disk,Started,deleted,Disk,file,filesystem
+Delete Disk,OK,deleted,Disk,file,filesystem
+Delete Disk,Accepted,deleted,Disk,file,filesystem
+Delete Disk,BadRequest,deleted,Disk,file,filesystem
+Delete Disk,PreconditionFailed,deleted,Disk,file,filesystem
+Delete Virtual Machine,unknown,deleted,Virtual Machine,file,filesystem
+Delete Virtual Machine,Started,deleted,Virtual Machine,file,filesystem
+Delete Virtual Machine,OK,deleted,Virtual Machine,file,filesystem
+Delete Virtual Machine,Accepted,deleted,Virtual Machine,file,filesystem
+Delete Virtual Machine,BadRequest,deleted,Virtual Machine,file,filesystem
+Delete Virtual Machine,PreconditionFailed,deleted,Virtual Machine,file,filesystem
+Create or Update Network Watcher,unknown,modified,Network Watcher,file,filesystem
+Create or Update Network Watcher,Started,modified,Network Watcher,file,filesystem
+Create or Update Network Watcher,OK,modified,Network Watcher,file,filesystem
+Create or Update Network Watcher,Created,created,Network Watcher,file,filesystem
+Create or Update Network Watcher,Accepted,modified,Network Watcher,file,filesystem
+Create or Update Network Watcher,BadRequest,modified,Network Watcher,file,filesystem
+Create or Update Network Watcher,Conflict,modified,Network Watcher,file,filesystem
+Delete resource group,unknown,deleted,Resource Group,group,AAA
+Delete resource group,Started,deleted,Resource Group,group,AAA
+Delete resource group,OK,deleted,Resource Group,group,AAA
+Delete resource group,Accepted,deleted,Resource Group,group,AAA
+Delete resource group,BadRequest,deleted,Resource Group,group,AAA
+Delete resource group,PreconditionFailed,deleted,Resource Group,group,AAA
+Delete Virtual Network Subnet,unknown,deleted,Virtual Network Subnet,file,filesystem
+Delete Virtual Network Subnet,Started,deleted,Virtual Network Subnet,file,filesystem
+Delete Virtual Network Subnet,OK,deleted,Virtual Network Subnet,file,filesystem
+Delete Virtual Network Subnet,Accepted,deleted,Virtual Network Subnet,file,filesystem
+Delete Virtual Network Subnet,BadRequest,deleted,Virtual Network Subnet,file,filesystem
+Delete Virtual Network Subnet,PreconditionFailed,deleted,Virtual Network Subnet,file,filesystem
+Delete EventHub,unknown,deleted,EventHub,directory,filesystem
+Delete EventHub,Started,deleted,EventHub,directory,filesystem
+Delete EventHub,OK,deleted,EventHub,directory,filesystem
+Delete EventHub,Accepted,deleted,EventHub,directory,filesystem
+Delete EventHub,BadRequest,deleted,EventHub,directory,filesystem
+Delete EventHub,PreconditionFailed,deleted,EventHub,directory,filesystem
+Delete ConsumerGroup,unknown,deleted,ConsumerGroup,group,AAA
+Delete ConsumerGroup,Started,deleted,ConsumerGroup,group,AAA
+Delete ConsumerGroup,OK,deleted,ConsumerGroup,group,AAA
+Delete ConsumerGroup,Accepted,deleted,ConsumerGroup,group,AAA
+Delete ConsumerGroup,BadRequest,deleted,ConsumerGroup,group,AAA
+Delete ConsumerGroup,PreconditionFailed,deleted,ConsumerGroup,group,AAA
+Delete Namespace,unknown,deleted,Namespace,directory,filesystem
+Delete Namespace,Started,deleted,Namespace,directory,filesystem
+Delete Namespace,OK,deleted,Namespace,directory,filesystem
+Delete Namespace,Accepted,deleted,Namespace,directory,filesystem
+Delete Namespace,BadRequest,deleted,Namespace,directory,filesystem
+Delete Namespace,PreconditionFailed,deleted,Namespace,directory,filesystem
+Create policy assignment,unknown,created,Policy Assignment,file,filesystem
+Create policy assignment,Started,created,Policy Assignment,file,filesystem
+Create policy assignment,Created,created,Policy Assignment,file,filesystem
+Create policy assignment,Accepted,created,Policy Assignment,file,filesystem
+Create policy assignment,BadRequest,created,Policy Assignment,file,filesystem
+Create policy assignment,Conflict,created,Policy Assignment,file,filesystem
+Restart Virtual Machine,unknown,restarted,Virtual Machine,OS,restart
+Restart Virtual Machine,Started,restarted,Virtual Machine,OS,restart
+Restart Virtual Machine,OK,restarted,Virtual Machine,OS,restart
+Restart Virtual Machine,Accepted,restarted,Virtual Machine,OS,restart
+Restart Virtual Machine,BadRequest,restarted,Virtual Machine,OS,restart
+Start Virtual Machine,unknown,started,Virtual Machine,OS,start
+Start Virtual Machine,Started,started,Virtual Machine,OS,start
+Start Virtual Machine,OK,started,Virtual Machine,OS,start
+Start Virtual Machine,Accepted,started,Virtual Machine,OS,start
+Start Virtual Machine,BadRequest,started,Virtual Machine,OS,start
+Update database account,unknown,modified,Database Account,user,AAA
+Update database account,Started,modified,Database Account,user,AAA
+Update database account,OK,modified,Database Account,user,AAA
+Update database account,Accepted,modified,Database Account,user,AAA
+Update database account,BadRequest,modified,Database Account,user,AAA
+Update database account,Conflict,modified,Database Account,user,AAA
+Delete Activity Log log profile,unknown,deleted,Log Profile,file,filesystem
+Delete Activity Log log profile,Started,deleted,Log Profile,file,filesystem
+Delete Activity Log log profile,OK,deleted,Log Profile,file,filesystem
+Delete Activity Log log profile,Accepted,deleted,Log Profile,file,filesystem
+Delete Activity Log log profile,BadRequest,deleted,Log Profile,file,filesystem
+Delete Activity Log log profile,PreconditionFailed,deleted,Log Profile,file,filesystem
+Put blob container,unknown,modified,Blob Container,directory,filesystem
+Put blob container,Started,modified,Blob Container,directory,filesystem
+Put blob container,OK,modified,Blob Container,directory,filesystem
+Put blob container,Created,created,Blob Container,directory,filesystem
+Put blob container,Accepted,modified,Blob Container,directory,filesystem
+Put blob container,BadRequest,modified,Blob Container,directory,filesystem
+Put blob container,Conflict,modified,Blob Container,directory,filesystem
+Create Deployment,unknown,created,Deployment,file,filesystem
+Create Deployment,Started,created,Deployment,file,filesystem
+Create Deployment,Created,created,Deployment,file,filesystem
+Create Deployment,Accepted,created,Deployment,file,filesystem
+Create Deployment,BadRequest,created,Deployment,file,filesystem
+Create Deployment,Conflict,created,Deployment,file,filesystem
+Put File Service Properties,unknown,modified,File Service Properties,file,filesystem
+Put File Service Properties,Started,modified,File Service Properties,file,filesystem
+Put File Service Properties,OK,modified,File Service Properties,file,filesystem
+Put File Service Properties,Created,created,File Service Properties,file,filesystem
+Put File Service Properties,Accepted,modified,File Service Properties,file,filesystem
+Put File Service Properties,BadRequest,modified,File Service Properties,file,filesystem
+Put File Service Properties,Conflict,modified,File Service Properties,file,filesystem
+Put blob service properties,unknown,modified,Blob Service Properties,file,filesystem
+Put blob service properties,Started,modified,Blob Service Properties,file,filesystem
+Put blob service properties,OK,modified,Blob Service Properties,file,filesystem
+Put blob service properties,Created,created,Blob Service Properties,file,filesystem
+Put blob service properties,Accepted,modified,Blob Service Properties,file,filesystem
+Put blob service properties,BadRequest,modified,Blob Service Properties,file,filesystem
+Put blob service properties,Conflict,modified,Blob Service Properties,file,filesystem
+Create role assignment,unknown,created,Role Assignment,user,AAA
+Create role assignment,Started,created,Role Assignment,user,AAA
+Create role assignment,Created,created,Role Assignment,user,AAA
+Create role assignment,Accepted,created,Role Assignment,user,AAA
+Create role assignment,BadRequest,created,Role Assignment,user,AAA
+Create role assignment,Conflict,created,Role Assignment,user,AAA
+Create or update Activity Log log profile,unknown,modified,Log Profile,file,filesystem
+Create or update Activity Log log profile,Started,modified,Log Profile,file,filesystem
+Create or update Activity Log log profile,OK,modified,Log Profile,file,filesystem
+Create or update Activity Log log profile,Created,created,Log Profile,file,filesystem
+Create or update Activity Log log profile,Accepted,modified,Log Profile,file,filesystem
+Create or update Activity Log log profile,BadRequest,modified,Log Profile,file,filesystem
+Create or update Activity Log log profile,Conflict,modified,Log Profile,file,filesystem
+Create or Update Availability Set,unknown,modified,Availability Set,file,filesystem
+Create or Update Availability Set,Started,modified,Availability Set,file,filesystem
+Create or Update Availability Set,OK,modified,Availability Set,file,filesystem
+Create or Update Availability Set,Created,created,Availability Set,file,filesystem
+Create or Update Availability Set,Accepted,modified,Availability Set,file,filesystem
+Create or Update Availability Set,BadRequest,modified,Availability Set,file,filesystem
+Create or Update Availability Set,Conflict,modified,Availability Set,file,filesystem
+Create or Update Virtual Machine Extension,unknown,modified,Virtual Machine Extension,file,filesystem
+Create or Update Virtual Machine Extension,Started,modified,Virtual Machine Extension,file,filesystem
+Create or Update Virtual Machine Extension,OK,modified,Virtual Machine Extension,file,filesystem
+Create or Update Virtual Machine Extension,Created,created,Virtual Machine Extension,file,filesystem
+Create or Update Virtual Machine Extension,Accepted,modified,Virtual Machine Extension,file,filesystem
+Create or Update Virtual Machine Extension,BadRequest,modified,Virtual Machine Extension,file,filesystem
+Create or Update Virtual Machine Extension,Conflict,modified,Virtual Machine Extension,file,filesystem
+Create/Update linked services under given workspace.,unknown,modified,Linked Services,file,filesystem
+Create/Update linked services under given workspace.,Started,modified,Linked Services,file,filesystem
+Create/Update linked services under given workspace.,OK,modified,Linked Services,file,filesystem
+Create/Update linked services under given workspace.,Created,created,Linked Services,file,filesystem
+Create/Update linked services under given workspace.,Accepted,modified,Linked Services,file,filesystem
+Create/Update linked services under given workspace.,BadRequest,modified,Linked Services,file,filesystem
+Create/Update linked services under given workspace.,Conflict,modified,Linked Services,file,filesystem
+Update Key Vault,unknown,modified,Key Vault,file,filesystem
+Update Key Vault,Started,modified,Key Vault,file,filesystem
+Update Key Vault,OK,modified,Key Vault,file,filesystem
+Update Key Vault,Created,created,Key Vault,file,filesystem
+Update Key Vault,Accepted,modified,Key Vault,file,filesystem
+Update Key Vault,BadRequest,modified,Key Vault,file,filesystem
+Update Key Vault,Conflict,modified,Key Vault,file,filesystem
+Create or Update Network Security Group,unknown,modified,Network Security Group,group,AAA
+Create or Update Network Security Group,Started,modified,Network Security Group,group,AAA
+Create or Update Network Security Group,OK,modified,Network Security Group,group,AAA
+Create or Update Network Security Group,Created,created,Network Security Group,group,AAA
+Create or Update Network Security Group,Accepted,modified,Network Security Group,group,AAA
+Create or Update Network Security Group,BadRequest,modified,Network Security Group,group,AAA
+Create or Update Network Security Group,Conflict,modified,Network Security Group,group,AAA
+Create Or Update Namespace,unknown,modified,Namespace,directory,filesystem
+Create Or Update Namespace,Started,modified,Namespace,directory,filesystem
+Create Or Update Namespace,OK,modified,Namespace,directory,filesystem
+Create Or Update Namespace,Created,created,Namespace,directory,filesystem
+Create Or Update Namespace,Accepted,modified,Namespace,directory,filesystem
+Create Or Update Namespace,BadRequest,modified,Namespace,directory,filesystem
+Create Or Update Namespace,Conflict,modified,Namespace,directory,filesystem
+Put or lease blob container,unknown,modified,Blob Container,directory,filesystem
+Put or lease blob container,Started,modified,Blob Container,directory,filesystem
+Put or lease blob container,OK,modified,Blob Container,directory,filesystem
+Put or lease blob container,Created,created,Blob Container,directory,filesystem
+Put or lease blob container,Accepted,modified,Blob Container,directory,filesystem
+Put or lease blob container,BadRequest,modified,Blob Container,directory,filesystem
+Put or lease blob container,Conflict,modified,Blob Container,directory,filesystem
+Read database account readonly keys,unknown,read,Readonly Keys,file,filesystem
+Read database account readonly keys,Started,read,Readonly Keys,file,filesystem
+Read database account readonly keys,OK,read,Readonly Keys,file,filesystem
+Read database account readonly keys,Accepted,read,Readonly Keys,file,filesystem
+Read database account readonly keys,BadRequest,read,Readonly Keys,file,filesystem
+Read database account readonly keys,Conflict,read,Readonly Keys,file,filesystem
+Delete database accounts,unknown,deleted,Database Account,user,AAA
+Delete database accounts,Started,deleted,Database Account,user,AAA
+Delete database accounts,OK,deleted,Database Account,user,AAA
+Delete database accounts,Accepted,deleted,Database Account,user,AAA
+Delete database accounts,BadRequest,deleted,Database Account,user,AAA
+Delete database accounts,PreconditionFailed,deleted,Database Account,user,AAA
+Delete Network Interface,unknown,deleted,Network Interface,file,filesystem
+Delete Network Interface,Started,deleted,Network Interface,file,filesystem
+Delete Network Interface,OK,deleted,Network Interface,file,filesystem
+Delete Network Interface,Accepted,deleted,Network Interface,file,filesystem
+Delete Network Interface,BadRequest,deleted,Network Interface,file,filesystem
+Delete Network Interface,PreconditionFailed,deleted,Network Interface,file,filesystem

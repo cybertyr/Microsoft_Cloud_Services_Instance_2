@@ -1,0 +1,11 @@
+ExtendedProperties.resourceType, dest_type
+Virtual Machine, instance
+Disk, disk
+Storage Accounts, storage
+Network Security Groups, firewall
+User Management, user
+Public IP Address, public ip
+SQL Database, database
+App Service, service
+Key Vault, cloud service
+Storage, storage

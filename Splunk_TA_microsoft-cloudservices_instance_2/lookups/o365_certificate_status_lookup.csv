@@ -1,0 +1,8 @@
+status,description,status_code
+empty,No certificate configured yet,0
+not_verified,Certificate is uploaded but not verified yet,1
+valid,Uploaded and verified as valid,3
+invalid,Uploaded but invalid,2
+generated,Auto-generated but not verified yet,1
+generated_valid,Auto-generated and verified as valid,3
+generated_invalid,Auto-generated but invalid,2

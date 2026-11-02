@@ -1,0 +1,7 @@
+management_api_data,data
+Audit.AzureActiveDirectory,Azure AD Audit
+Audit.Exchange,Exchange Online Audit
+Audit.Sharepoint,Sharepoint Online Audit
+Audit.General,Audit General
+CurrentStatus,Service Status
+Messages,Operational Message
