@@ -8,17 +8,17 @@ import time
 from cattrs import ClassValidationError, transform_error
 from solnlib.conf_manager import ConfManagerException, ConfManager
 
-from splunk_ta_mscs_i2.models import ProxyConfig
+from splunk_ta_mscs.models import ProxyConfig
 from mscs_common_utils import (
     get_account_from_config,
     get_api_details,
     APP_NAME,
 )
-from splunk_ta_mscs_i2.mscs_credential_provider import get_credential
+from splunk_ta_mscs.mscs_credential_provider import get_credential
 
 import mscs_common_api_error as mae
 import mscs_consts
-from splunk_ta_mscs_i2.mscs_service_client import ServiceClient
+from splunk_ta_mscs.mscs_service_client import ServiceClient
 from azure.core.rest import HttpRequest
 from mscs_request_retrier import RequestRetrier
 

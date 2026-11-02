@@ -4,7 +4,7 @@
 #
 #
 import import_declare_test
-from modular_inputs.mscs_i2_azure_event_hub import main
+from modular_inputs.mscs_azure_event_hub import main
 
 if __name__ == "__main__":
     main()

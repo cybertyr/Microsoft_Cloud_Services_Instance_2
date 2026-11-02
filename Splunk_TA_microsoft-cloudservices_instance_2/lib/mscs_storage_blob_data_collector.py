@@ -25,7 +25,7 @@ import splunktaucclib.common.log as stulog  # pylint: disable=import-error
 import splunktaucclib.data_collection.ta_data_client as dc  # pylint: disable=import-error
 
 from solnlib.observability import StanzaObservabilityRecorder
-from splunk_ta_mscs_i2.models import ProxyConfig, AzureStorageAccountConfig
+from splunk_ta_mscs.models import ProxyConfig, AzureStorageAccountConfig
 from splunksdc.utils import parseCSVLine
 
 

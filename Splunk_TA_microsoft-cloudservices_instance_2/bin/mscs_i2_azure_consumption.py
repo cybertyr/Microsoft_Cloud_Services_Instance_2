@@ -6,7 +6,7 @@
 import import_declare_test
 import sys
 
-from modular_inputs.scripts.mscs_i2_azure_consumption import MscsAzureConsumption
+from modular_inputs.scripts.mscs_azure_consumption import MscsAzureConsumption
 
 if __name__ == "__main__":
     exit_code = MscsAzureConsumption().run(sys.argv)

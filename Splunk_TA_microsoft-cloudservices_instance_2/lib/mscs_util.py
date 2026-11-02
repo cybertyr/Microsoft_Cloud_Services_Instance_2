@@ -28,7 +28,7 @@ from splunktaucclib.rest_handler.endpoint import (
 import mscs_consts
 from solnlib.splunkenv import get_splunkd_uri  # pylint: disable=import-error
 
-from splunk_ta_mscs_i2.models import ProxyConfig
+from splunk_ta_mscs.models import ProxyConfig
 from splunk import admin, clilib, rest  # pylint: disable=import-error
 
 from solnlib import (  # isort: skip # pylint: disable=import-error

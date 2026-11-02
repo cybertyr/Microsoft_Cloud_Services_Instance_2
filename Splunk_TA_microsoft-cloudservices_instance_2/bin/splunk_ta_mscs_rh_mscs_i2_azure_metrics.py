@@ -7,7 +7,7 @@ import import_declare_test
 import logging
 from splunktaucclib.rest_handler import admin_external
 from splunktaucclib.rest_handler.admin_external import AdminExternalHandler
-from rest_handlers.mscs_i2_azure_metrics import endpoint
+from rest_handlers.mscs_azure_metrics import endpoint
 from splunktaucclib.rest_handler import util
 
 util.remove_http_proxy_env_vars()

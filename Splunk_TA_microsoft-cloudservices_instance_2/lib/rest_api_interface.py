@@ -12,7 +12,7 @@ from solnlib import (  # isort: skip # pylint: disable=import-error
     conf_manager,
 )
 
-from splunk_ta_mscs_i2.models import ProxyConfig
+from splunk_ta_mscs.models import ProxyConfig
 
 TA_ENDPOINT = f"/servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2"
 

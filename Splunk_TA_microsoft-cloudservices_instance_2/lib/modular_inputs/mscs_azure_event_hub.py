@@ -48,7 +48,7 @@ from splunksdc.config import (  # isort: skip
 )  # isort: skip
 
 import mscs_consts
-from splunk_ta_mscs_i2.models import (
+from splunk_ta_mscs.models import (
     ProxyConfig,
     AzureAccountConfig,
     AzureStorageAccountConfig,
@@ -57,7 +57,7 @@ from splunk_ta_mscs_i2.models import (
 from mscs_storage_service import (
     _create_blob_checkpoint_store_service,
 )
-from splunk_ta_mscs_i2.mscs_credential_provider import get_credential
+from splunk_ta_mscs.mscs_credential_provider import get_credential
 from solnlib.file_monitor import FileChangesChecker
 
 logger = logging.get_module_logger()

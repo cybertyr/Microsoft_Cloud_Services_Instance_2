@@ -7,7 +7,7 @@ from typing import List, Dict
 from os import path, environ, getcwd
 
 from azure.core.exceptions import ResourceNotFoundError
-from modular_inputs.mscs_i2_azure_event_hub import SharedLocalCheckpoint
+from modular_inputs.mscs_azure_event_hub import SharedLocalCheckpoint
 from mscs_storage_service import (
     _create_blob_checkpoint_store_service,
 )
@@ -16,7 +16,7 @@ from rest_api_interface import (
     get_storage_accounts,
     get_proxy_info_from_endpoint,
 )
-from splunk_ta_mscs_i2.models import AzureStorageAccountConfig
+from splunk_ta_mscs.models import AzureStorageAccountConfig
 
 from solnlib.utils import is_false, is_true
 

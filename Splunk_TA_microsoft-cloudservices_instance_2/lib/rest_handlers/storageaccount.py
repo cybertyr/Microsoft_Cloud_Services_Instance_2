@@ -11,7 +11,7 @@ from splunktaucclib.rest_handler.admin_external import (  # isort: skip # pylint
     AdminExternalHandler,
 )
 
-from splunk_ta_mscs_i2.models import (
+from splunk_ta_mscs.models import (
     AzureStorageAccountConfig,
     format_validation_exception,
     NoneSecretType,

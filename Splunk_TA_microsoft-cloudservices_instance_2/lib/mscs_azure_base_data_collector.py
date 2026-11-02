@@ -10,15 +10,15 @@ import mscs_api_error as mae
 import mscs_consts
 import mscs_logger as logger
 import mscs_util
-from splunk_ta_mscs_i2.models import (
+from splunk_ta_mscs.models import (
     AzureAccountConfig,
     format_validation_exception,
     ProxyConfig,
 )
 import typing as t
-from splunk_ta_mscs_i2.mscs_service_client import ServiceClient
+from splunk_ta_mscs.mscs_service_client import ServiceClient
 from azure.core.rest import HttpRequest
-from splunk_ta_mscs_i2.mscs_credential_provider import get_credential
+from splunk_ta_mscs.mscs_credential_provider import get_credential
 from mscs_request_retrier import RequestRetrier
 
 

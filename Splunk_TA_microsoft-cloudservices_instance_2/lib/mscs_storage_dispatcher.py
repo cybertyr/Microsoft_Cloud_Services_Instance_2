@@ -21,7 +21,7 @@ from mscs_checkpointer import KVCheckpointer, FileCheckpointer
 import mscs_consts
 import mscs_util
 import splunk.rest as rest
-from splunk_ta_mscs_i2.models import (
+from splunk_ta_mscs.models import (
     ProxyConfig,
     AzureStorageAccountConfig,
     format_validation_exception,

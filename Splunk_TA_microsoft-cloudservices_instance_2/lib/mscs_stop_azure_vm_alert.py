@@ -14,7 +14,7 @@ from mscs_consts import (
 )
 from mscs_util import get_proxy_info_from_endpoint
 from splunktaucclib.alert_actions_base import ModularAlertBase
-from splunk_ta_mscs_i2.mscs_credential_provider import get_credential
+from splunk_ta_mscs.mscs_credential_provider import get_credential
 
 
 class AlertActionStopAzureVM(ModularAlertBase):

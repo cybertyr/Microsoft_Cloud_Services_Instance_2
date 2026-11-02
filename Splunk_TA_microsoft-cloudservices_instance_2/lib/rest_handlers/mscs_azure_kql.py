@@ -16,7 +16,7 @@ from splunktaucclib.rest_handler.endpoint import (
 )
 
 from mscs_common_utils import set_logger
-from modular_inputs.scripts.mscs_i2_azure_kql import MSCSAzureKQL
+from modular_inputs.scripts.mscs_azure_kql import MSCSAzureKQL
 from modular_inputs.mscs_azure_kql_collector import AzureKQLCollector
 
 

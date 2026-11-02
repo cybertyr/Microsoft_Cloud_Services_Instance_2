@@ -19,7 +19,7 @@ import table_collector_helper as tchelper
 from azure.data.tables import EntityProperty  # pylint: disable=import-error
 from solnlib.observability import StanzaObservabilityRecorder
 
-from splunk_ta_mscs_i2.models import ProxyConfig, AzureStorageAccountConfig
+from splunk_ta_mscs.models import ProxyConfig, AzureStorageAccountConfig
 
 
 def running_task(

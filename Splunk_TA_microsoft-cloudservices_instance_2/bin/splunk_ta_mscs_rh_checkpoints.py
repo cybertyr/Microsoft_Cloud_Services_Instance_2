@@ -20,7 +20,7 @@ sys.path = [
 ] + sys.path
 import import_declare_test
 
-import modular_inputs.checkpoints.mscs_i2_azure_event_hub as eventhub_checkpoint
+import modular_inputs.checkpoints.mscs_azure_event_hub as eventhub_checkpoint
 from rest_api_interface import flatten_query_params
 
 

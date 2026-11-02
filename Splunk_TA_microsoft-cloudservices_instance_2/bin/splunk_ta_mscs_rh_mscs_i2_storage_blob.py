@@ -10,7 +10,7 @@ from splunktaucclib.rest_handler import (
     admin_external,
     util,
 )
-from rest_handlers.mscs_i2_storage_blob import (
+from rest_handlers.mscs_storage_blob import (
     endpoint,
     StorageBlobInputHandler,
 )

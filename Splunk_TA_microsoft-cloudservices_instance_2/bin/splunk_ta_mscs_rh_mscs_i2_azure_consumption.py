@@ -6,7 +6,7 @@
 import import_declare_test
 import logging
 from splunktaucclib.rest_handler import admin_external
-from rest_handlers.mscs_i2_azure_consumption import (
+from rest_handlers.mscs_azure_consumption import (
     endpoint,
     MscsAzureConsumptionExternalHandler,
 )

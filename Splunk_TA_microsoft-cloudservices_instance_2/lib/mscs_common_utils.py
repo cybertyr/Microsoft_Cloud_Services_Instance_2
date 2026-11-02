@@ -23,7 +23,7 @@ from solnlib import conf_manager, log
 from splunklib import modularinput as smi
 from solnlib import utils
 
-from splunk_ta_mscs_i2.models import AzureAccountConfig, format_validation_exception
+from splunk_ta_mscs.models import AzureAccountConfig, format_validation_exception
 from cattrs import ClassValidationError, transform_error
 
 APP_NAME = __file__.split(op.sep)[-3]

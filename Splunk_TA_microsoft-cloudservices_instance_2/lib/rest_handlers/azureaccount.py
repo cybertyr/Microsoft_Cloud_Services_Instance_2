@@ -14,7 +14,7 @@ from splunktaucclib.rest_handler.endpoint import (
 from splunktaucclib.rest_handler.admin_external import AdminExternalHandler
 from cattrs import ClassValidationError, transform_error
 
-from splunk_ta_mscs_i2.models import (
+from splunk_ta_mscs.models import (
     AzureAccountConfig,
     ModelValidationException,
     format_validation_exception,
@@ -22,7 +22,7 @@ from splunk_ta_mscs_i2.models import (
 from mscs_util import (
     get_proxy_info_from_endpoint,
 )
-from splunk_ta_mscs_i2.mscs_credential_provider import validate_credential
+from splunk_ta_mscs.mscs_credential_provider import validate_credential
 import mscs_consts
 
 

@@ -10,7 +10,7 @@ import logging
 from azure.eventhub.extensions import checkpointstoreblob
 
 import mscs_consts
-from splunk_ta_mscs_i2.models import (
+from splunk_ta_mscs.models import (
     AzureStorageAccountConfig,
     ProxyConfig,
 )

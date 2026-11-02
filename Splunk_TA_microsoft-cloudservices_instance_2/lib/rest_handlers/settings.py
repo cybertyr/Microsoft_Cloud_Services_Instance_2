@@ -15,9 +15,9 @@ from splunktaucclib.rest_handler.endpoint import (
     MultipleModel,
 )
 
-from splunk_ta_mscs_i2.models import ProxyConfig
+from splunk_ta_mscs.models import ProxyConfig
 from rest_handlers.model_validators import RestFieldValidator
-from splunk_ta_mscs_i2.global_settings import GlobalSettings
+from splunk_ta_mscs.global_settings import GlobalSettings
 
 
 def validate_field_func(field_, attr_class):

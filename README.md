@@ -1,6 +1,6 @@
 # Microsoft Cloud Services — Instance 2 (Splunk TA)
 
-Fork of **Splunk Add-on for Microsoft Cloud Services 6.3.3** so it can run **side-by-side** with the stock `Splunk_TA_microsoft-cloudservices` app, each pointing at a different Microsoft tenant / Azure subscription set.
+Minimal side-by-side fork of **Splunk Add-on for Microsoft Cloud Services 6.3.3** so it can run next to the stock `Splunk_TA_microsoft-cloudservices` app (second Microsoft tenant / Azure subscription set).
 
 > **This repository root is not a Splunk app.**  
 > Installing the GitHub ZIP / clone root (e.g. `Microsoft_Cloud_Services_Instance_2-main`) into `$SPLUNK_HOME/etc/apps/` produces the **generic Search** UI.  
@@ -42,12 +42,24 @@ tar -xzf dist/Splunk_TA_microsoft-cloudservices_instance_2-*.tgz -C "$SPLUNK_HOM
 "$SPLUNK_HOME/bin/splunk" restart
 ```
 
+### Side-by-side with vendor TA
+
+| | Vendor (Instance 1) | This repo (Instance 2) |
+|--|---------------------|-------------------------|
+| Install path | `$SPLUNK_HOME/etc/apps/Splunk_TA_microsoft-cloudservices/` | `$SPLUNK_HOME/etc/apps/Splunk_TA_microsoft-cloudservices_instance_2/` |
+| App label | Splunk Add-on for Microsoft Cloud Services | Splunk Add-on for Microsoft Cloud Services (Instance 2) |
+| Nav | Inputs / Configuration / Search / Health Dashboard | same |
+| Input schemes | `mscs_*` | `mscs_i2_*` |
+| UCC REST | `splunk_ta_mscs` | `splunk_ta_mscs_i2` |
+
+Both folders can exist on the same Splunk instance. Configure accounts and inputs **inside each app** separately.
+
 ### Expected UI after a correct install
 
 | Check | Expected |
 |-------|----------|
 | App label | Splunk Add-on for Microsoft Cloud Services (Instance 2) |
-| Nav tabs | **Entrées** (Inputs), **Configuration**, **Recherche** (Search), **Health Dashboard** |
+| Nav tabs | Inputs, Configuration, Search, Health Dashboard |
 | Default page | Inputs (`…/inputs`) |
 | URL app id | `/app/Splunk_TA_microsoft-cloudservices_instance_2/…` |
 
@@ -55,70 +67,66 @@ tar -xzf dist/Splunk_TA_microsoft-cloudservices_instance_2-*.tgz -C "$SPLUNK_HOM
 
 You almost certainly installed the **repo root** (GitHub ZIP name `…-main`), not the TA folder.
 
-1. Remove the wrong app directory, for example:
-   - `$SPLUNK_HOME/etc/apps/Microsoft_Cloud_Services_Instance_2-main`
-   - `$SPLUNK_HOME/etc/apps/microsoft_cloud_services_instance_2-main`
-2. Install `Splunk_TA_microsoft-cloudservices_instance_2` with Option A/B/C above.
+1. Remove the wrong app directory (e.g. `…/Microsoft_Cloud_Services_Instance_2-main`).
+2. Install `Splunk_TA_microsoft-cloudservices_instance_2` with Option A/B/C.
 3. Restart Splunk and reopen the Instance 2 app.
 
-Do **not** rename the TA folder; UCC templates and static JS paths hardcode `Splunk_TA_microsoft-cloudservices_instance_2`.
+Do **not** rename the TA folder; UCC templates hardcode `Splunk_TA_microsoft-cloudservices_instance_2`.
 
-## Deployable app in this repository
+## Exact rename map (coexistence only)
 
-| Item | Instance 1 (vendor) | Instance 2 (this repo) |
-|------|---------------------|-------------------------|
-| App folder | `Splunk_TA_microsoft-cloudservices` | `Splunk_TA_microsoft-cloudservices_instance_2/` |
-| Package / `[id]` name | `Splunk_TA_microsoft-cloudservices` | `Splunk_TA_microsoft-cloudservices_instance_2` |
-| UI label | Splunk Add-on for Microsoft Cloud Services | Splunk Add-on for Microsoft Cloud Services (Instance 2) |
-| UCC REST root | `splunk_ta_mscs` | `splunk_ta_mscs_i2` |
-| Modular input schemes | `mscs_*` | `mscs_i2_*` |
-| Global settings conf | `splunk_ta_mscs_settings.conf` | `splunk_ta_mscs_i2_settings.conf` |
-| KV collections | `splunk_ta_mscs_metric`, … | `splunk_ta_mscs_i2_metric`, … |
+Applied by `scripts/build_instance2_addon.py` from a fresh vendor extract:
 
-## Opening and extracting a vendor `.spl` file
+| Kind | Vendor | Instance 2 |
+|------|--------|------------|
+| App folder / `package.id` / `[id]` / `globalConfig.meta.name` | `Splunk_TA_microsoft-cloudservices` | `Splunk_TA_microsoft-cloudservices_instance_2` |
+| UI label / displayName | Splunk Add-on for Microsoft Cloud Services | … (Instance 2) |
+| UCC `restRoot` | `splunk_ta_mscs` | `splunk_ta_mscs_i2` |
+| Settings conf | `splunk_ta_mscs_settings` | `splunk_ta_mscs_i2_settings` |
+| KV collections | `splunk_ta_mscs_metric`, `splunk_ta_mscs_azure_consumption` | `…_i2_metric`, `…_i2_azure_consumption` |
+| Modular input schemes | `mscs_azure_event_hub`, `mscs_storage_blob`, `mscs_storage_table`, `mscs_azure_audit`, `mscs_azure_resource`, `mscs_azure_metrics`, `mscs_azure_kql`, `mscs_azure_consumption` | same with `mscs_i2_` prefix |
+| Alert action | `mscs_stop_azure_vm` | `mscs_i2_stop_azure_vm` |
+| TA log source prefix (`props.conf`) | `splunk_ta_microsoft-cloudservices_*` | `splunk_ta_microsoft-cloudservices_instance_2_*` |
+| UCC input REST endpoints | `{restRoot}_{scheme}` e.g. `splunk_ta_mscs_mscs_storage_blob` | e.g. `splunk_ta_mscs_i2_mscs_i2_storage_blob` |
+| `check_for_updates` | `true` | `false` |
 
-Splunk app packages (`.spl`) are usually **gzip-compressed tar archives**.
+**Not renamed (on purpose):**
+
+- Python package `lib/splunk_ta_mscs/` and `from/import splunk_ta_mscs…`
+- Account / API conf files: `mscs_azure_accounts`, `mscs_storage_accounts`, `mscs_api_settings`, `mscs_azure_*_inputs`
+- Data sourcetypes (`mscs:azure:*`, `mscs:storage:*`, …)
+- Third-party libraries under `lib/`
+
+## Rebuild from vendor `.spl`
 
 ```bash
 mkdir -p ../extracted
-tar -xzf splunk-add-on-for-microsoft-cloud-services_633.spl -C ../extracted
-# → ../extracted/Splunk_TA_microsoft-cloudservices/
-```
-
-## What stays shared vs isolated
-
-**Isolated per app (safe for side-by-side):**
-
-- App-local configuration under `local/` (accounts, inputs, passwords via `storage/passwords` scoped to this app name).
-- REST namespace `/servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2/...`
-- Modular input types `mscs_i2_*` (Splunk registers input *schemes* globally; duplicate `mscs_*` would clash with instance 1).
-- TA log files under `$SPLUNK_HOME/var/log/splunk/splunk_ta_microsoft-cloudservices_instance_2_*` (see `default/props.conf`).
-
-**Unchanged conf *filenames* (still valid; stanzas are app-scoped via REST):**
-
-- `mscs_azure_accounts`, `mscs_storage_accounts`, `mscs_api_settings`, `mscs_azure_audit_inputs`, `mscs_azure_resource_inputs`.
-
-**Python package `lib/splunk_ta_mscs/`** — left as-is (import path); runtime app name comes from directory via `mscs_common_utils.APP_NAME`.
-
-## Rebuild from vendor tarball
-
-After updating `../extracted/Splunk_TA_microsoft-cloudservices/` from a new `.spl`:
-
-```bash
+rm -rf ../extracted/Splunk_TA_microsoft-cloudservices
+tar -xzf /path/to/splunk-add-on-for-microsoft-cloud-services_633.spl -C ../extracted
 python3 scripts/build_instance2_addon.py
+# optional: python3 scripts/build_instance2_addon.py --src /other/path/Splunk_TA_microsoft-cloudservices
 ```
 
-## Splunk deployment checklist
+The script is re-runnable: it deletes and recreates `Splunk_TA_microsoft-cloudservices_instance_2/` from the vendor tree, then applies only the renames above.
 
-1. Install stock TA (instance 1) and this TA (instance 2) on the same instance — each under its own correct folder name.
-2. Configure Azure accounts separately in each app’s **Configuration** UI.
-3. Create inputs only under the matching app (input types are `mscs_i2_*` here).
-4. Restart Splunk after install.
-5. Confirm REST:  
-   `curl -k -u admin:pass https://localhost:8089/servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2/splunk_ta_mscs_i2_settings`
+## Verification (no live Splunk required)
 
-## Recommended follow-up (not automated)
+Already covered by rebuilding + checks in this repo workflow:
 
-- Run Splunk’s **add-on self-test** and one modular input smoke test per `mscs_i2_*` type in a lab indexer/forwarder.
-- If you use **alert action** “Stop Azure VM”, validate `mscs_i2_stop_azure_vm` after upgrade.
-- Re-run `build_instance2_addon.py` after each vendor `.spl` upgrade; diff `scripts/build_instance2_addon.py` if Splunk changes UCC layout.
+- Diff vs vendor: only coexistence paths change; `lib/splunk_ta_mscs/` and third-party libs untouched
+- No broken imports (`splunk_ta_mscs_i2`, `rest_handlers.mscs_i2_*`, …)
+- INI parse: `app.conf`, `inputs.conf`, `restmap.conf`, `web.conf`, `collections.conf`, settings
+- `nav/default.xml` still has Inputs / Configuration / Search / Health
+- `globalConfig.json` `meta.name` = app folder; `restRoot` matches restmap
+- Modular input `Scheme()` / `DataInputModel` strings use `mscs_i2_*`; bin scripts keep imports of unrenamed lib modules
+- Every `handlerfile=` / `script=` in restmap exists under `bin/`
+
+### Deploy smoke tests (on a Splunk host)
+
+1. Install vendor TA + this TA under the two folder names above; restart.
+2. Open Instance 2 → expect UCC Inputs (not generic Search).
+3. Add one Azure account under Instance 2 Configuration (does not appear in vendor app).
+4. Create one disabled input of type `mscs_i2_azure_event_hub` (or any `mscs_i2_*`).
+5. Optional REST check:  
+   `…/servicesNS/nobody/Splunk_TA_microsoft-cloudservices_instance_2/splunk_ta_mscs_i2/splunk_ta_mscs_i2_settings`
+6. If using alert “Stop Azure VM”, validate action `mscs_i2_stop_azure_vm`.
